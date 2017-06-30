@@ -1,0 +1,31 @@
+{
+    "name": "chatservicer-button_component_angular",
+    "version": "0.0.0",
+    "description": "akit chatservicer-button component",
+    "main": "main.js",
+    "repository": {
+        "type": "git",
+        "url": "ssh://git@git.antwerpen.be/akit/chatservicer-button_component_angular.git"
+    },
+    "keywords": [
+        "chatservicer",
+        "angular"
+    ],
+    "author": "Andry Charlier",
+    "devDependencies": {
+        "astad-gulp-setup": "^3.3.3",
+        "babel": "^6.23.0",
+        "babel-core": "^6.23.1",
+        "babel-polyfill": "^6.23.0",
+        "babel-preset-es2015": "^6.22.0",
+        "babel-preset-node6": "^11.0.0",
+        "babel-register": "^6.23.0",
+        "del": "^2.2.2",
+        "eslint": "^3.16.0",
+        "eslint-config-digipolis-fe-js": "^1.1.0",
+        "gulp": "^3.9.1",
+        "gulp-connect": "^5.0.0",
+        "run-sequence": "^1.2.2",
+        "wiredep": "^4.0.0"
+    }
+}

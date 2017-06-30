@@ -1,0 +1,28 @@
+{
+    "name": "akit-component-chatservicer-button",
+    "version": "0.0.0",
+    "description": "akit chatservicer-button component",
+    "main": [
+        "dist/css/akit.component.chatservicer-button.css",
+        "dist/js/akit.component.chatservicer-button.js"
+    ],
+    "authors": [
+        "Andry Charlier"
+    ],
+    "dependencies": {
+        "angular": "1.2.12",
+        "sasskit": "ssh://git@git.antwerpen.be/astad/sasskit_bower_scss.git#3.x.x"
+    },
+    "keywords": [
+        "chatservicer",
+        "angular"
+    ],
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}
