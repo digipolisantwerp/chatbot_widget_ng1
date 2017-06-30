@@ -1,1 +1,22 @@
 @import "sasskit/dist/scss/api";
+
+.chatservicer-button {
+    position: fixed;
+    right: 0;
+    bottom: 0
+}
+
+
+// Elements
+// ---
+
+// Button
+.chatservicer-button .button {
+    margin: 0;
+}
+
+// Popup
+.chatservicer__popup {
+    position: absolute;
+    top: 0;
+}
