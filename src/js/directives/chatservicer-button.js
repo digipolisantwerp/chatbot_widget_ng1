@@ -14,11 +14,15 @@
                     controller: 'akit.component.chatservicerButton.chatservicerButtonController',
                     controllerAs: 'chatservicer',
                     link: function ($scope, element, attrs, ctrl) {
+                        var buttonTextAvailable = 'Chat met een medewerker';
+                        var buttonTextUnavailable = 'Hulp nodig bij het invullen?';
+
                         function updateChatButton() {
                             if (ctrl.available) {
-                                ctrl.buttonText = 'Chat met een medewerker';
+                                if (ctrl.popupOpen) ctrl.popupOpen = false;
+                                ctrl.buttonText = buttonTextAvailable;
                             } else {
-                                ctrl.buttonText = 'Hulp nodig bij het invullen';
+                                ctrl.buttonText = buttonTextUnavailable;
                             }
                         }
 
