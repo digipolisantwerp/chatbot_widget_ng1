@@ -8,9 +8,9 @@
     </button>
 
     <div class="chatservicer-button__popup"
-         ng-if="!chatservicer.available && chatservicer.popupOpen">
-        <p>
-            Elke werkdag (van maandag tot en met vrijdag) kan je tussen 9u en 17u online hulp inroepen bij het invullen van een formulier in het e-loket. Je kan een (video)chat starten met een medewerker. De medewerker zal je stap voor stap begeleiden bij het invullen van het formulier. Hij zal het formulier niet voor jou invullen.
+         ng-class="{'is-open': chatservicer.popupOpen}">
+        <p translate>
+            {{ chatservicer.popupText }}
         </p>
     </div>
 </div>

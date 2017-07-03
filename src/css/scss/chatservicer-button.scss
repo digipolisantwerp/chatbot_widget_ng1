@@ -1,9 +1,12 @@
 @import "sasskit/dist/scss/api";
 
+$chatservicer-popup-animation: 200ms ease-in-out;
+
 .chatservicer-button {
     position: fixed;
     right: 0;
-    bottom: 0
+    bottom: 0;
+    z-index: 5;
 }
 
 
@@ -12,11 +15,36 @@
 
 // Button
 .chatservicer-button .button {
+    z-index: 1;
+
     margin: 0;
 }
 
 // Popup
-.chatservicer__popup {
+.chatservicer-button__popup {
     position: absolute;
-    top: 0;
+    right: 0;
+    bottom: 100%;
+    z-index: 0;
+
+    // min-width: rem(480);
+    width: 100%;
+    padding: $sizer 1rem;
+
+    background: $beta-background;
+    opacity: 0;
+    transform: translateY($sizer);
+    visibility: hidden;
+    transition: visibility 0s $chatservicer-popup-animation, opacity $chatservicer-popup-animation, transform $chatservicer-popup-animation;
+
+    &.is-open {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    p {
+        margin: 0;
+    }
 }
