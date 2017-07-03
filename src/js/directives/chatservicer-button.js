@@ -24,13 +24,13 @@
 
                         function initialize() {
                             updateChatButton();
-                        }
 
-                        $scope.$watch('available', function onAvailabiltyChange(newValue) {
-                            if (newValue !== ctrl.available) {
-                                updateChatButton();
-                            }
-                        });
+                            $scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
+                                if (newValue !== oldValue) {
+                                    updateChatButton();
+                                }
+                            });
+                        }
 
                         initialize();
                     }
