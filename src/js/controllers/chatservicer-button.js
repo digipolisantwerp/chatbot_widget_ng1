@@ -4,8 +4,9 @@
     ng
         .module('akit.component.chatservicerButton')
         .controller('akit.component.chatservicerButton.chatservicerButtonController', [
+            '$scope',
             'akit.component.chatservicerButto.chatproxyService',
-            function (chatproxyService) {
+            function ($scope, chatproxyService) {
                 var vm = this;
                 var popupTextInfo = 'Elke werkdag (van maandag tot en met vrijdag) kan je tussen 9u en 17u online hulp inroepen bij het invullen van een formulier in het e-loket. Je kan een (video)chat starten met een medewerker. De medewerker zal je stap voor stap begeleiden bij het invullen van het formulier. Hij zal het formulier niet voor jou invullen.';
                 var popupTextUnavailable = 'Al onze medewerkers zijn momenteel onbeschikbaar. Gelieve later opnieuw te proberen.';
@@ -16,17 +17,17 @@
                 vm.popupText;
 
                 function getChatAvailabilty() {
-                    var chatAvailability = chatproxyService.checkAvailability();
+                    var chatAvailability = chatproxyService.checkAvailability($scope.entitykey);
                     return chatAvailability.data.available;
                 }
 
                 function getChattersAvailability() {
-                    var chatters = chatproxyService.getChatURL();
+                    var chatters = chatproxyService.getChatURL($scope.entitykey);
                     return chatters.success;
                 }
 
                 function getChatURL() {
-                    var chatURL = chatproxyService.getChatURL();
+                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
                     return chatURL.data.url;
                 }
 

@@ -4,13 +4,19 @@
     ng
         .module('akit.component.chatservicerButton')
         .service('akit.component.chatservicerButto.chatproxyService', [
+            '$http',
             'akit.component.chatservicerButton.chatproxyConfig',
-            function (chatproxyConfig) {
+            function ($http, chatproxyConfig) {
 
                 var API = {};
 
-                function checkAvailability(entity) {
-                    // chatproxyConfig.chatproxyServiceUrl + 'availability?entitykey=:entitykey'     (entitykey for example: 'form.<identifier>'
+                function checkAvailability(entitykey) {
+                    // Call
+                    // return $http.get(chatproxyConfig.chatproxyServiceUrl + 'availability?entitykey=' + entitykey)
+                    //     .then(function (response) {
+                    //         return response.data;
+                    //     });
+                    // Response example
                     // {
                     //     "success": true,
                     //     "data": {
@@ -27,8 +33,13 @@
                     };
                 }
 
-                function getChatURL(entity) {
-                    // chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=:entitykey'     (entitykey for example: 'form.<identifier>'
+                function getChatURL(entitykey) {
+                    // Call
+                    // return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey)
+                    //     .then(function (response) {
+                    //         return response.data;
+                    //     });
+                    // Response example
                     // {
                     //     "success": true,
                     //         "data": {

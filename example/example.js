@@ -7,8 +7,8 @@
             '$scope',
             function ($scope) {
                 function switchAvailability() {
-                    var available = angular.element(document.querySelector('.chatservicer-button')).scope().chatservicer.available;
-                    angular.element(document.querySelector('.chatservicer-button')).scope().chatservicer.available = !available;
+                    var available = angular.element(document.querySelector('.button.has-icon')).scope().chatservicer.available;
+                    angular.element(document.querySelector('.button.has-icon')).scope().chatservicer.available = !available;
                 }
 
                 $scope.switchAvailability = switchAvailability;
