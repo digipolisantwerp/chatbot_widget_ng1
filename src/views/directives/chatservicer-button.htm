@@ -4,13 +4,23 @@
             ng-class="{'success': chatservicer.available}"
             ng-click="chatservicer.buttonClick()">
         <span class="fa fa-comments"></span>
-        <span translate>{{ chatservicer.buttonText }}</span>
+        <span ng-if="chatservicer.available">
+            <span translate>Chat met een medewerker</span>
+        </span>
+        <span ng-if="!chatservicer.available">
+            <span translate>Hulp nodig bij het invullen?</span>
+        </span>
     </button>
 
     <div class="chatservicer-button__popup"
          ng-class="{'is-open': chatservicer.popupOpen}">
-        <p translate>
-            {{ chatservicer.popupText }}
-        </p>
+        <div ng-if="!chatservicer.available && !chatservicer.occupied">
+            <p translate>
+                Elke werkdag (van maandag tot en met vrijdag) kan je tussen 9u en 17u online hulp inroepen bij het invullen van een formulier in het e-loket. Je kan een (video)chat starten met een medewerker. De medewerker zal je stap voor stap begeleiden bij het invullen van het formulier. Hij zal het formulier niet voor jou invullen.
+            </p>
+        </div>
+        <div ng-if="chatservicer.occupied">
+            <p translate>Al onze medewerkers zijn momenteel onbeschikbaar. Gelieve later opnieuw te proberen.</p>
+        </div>
     </div>
 </div>

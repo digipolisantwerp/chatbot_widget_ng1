@@ -18,12 +18,7 @@
                     },
                     link: function (scope, element, attrs, ctrl) {
                         function updateChatButton() {
-                            if (ctrl.available) {
-                                if (ctrl.popupOpen) ctrl.popupOpen = false;
-                                ctrl.buttonText = buttonTextAvailable;
-                            } else {
-                                ctrl.buttonText = buttonTextUnavailable;
-                            }
+                            if (ctrl.popupOpen) ctrl.popupOpen = false;
                         }
 
                         function initialize() {

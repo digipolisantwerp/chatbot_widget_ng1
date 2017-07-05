@@ -8,13 +8,12 @@
             'akit.component.chatservicerButto.chatproxyService',
             function ($scope, chatproxyService) {
                 var vm = this;
-                var popupTextInfo = 'Elke werkdag (van maandag tot en met vrijdag) kan je tussen 9u en 17u online hulp inroepen bij het invullen van een formulier in het e-loket. Je kan een (video)chat starten met een medewerker. De medewerker zal je stap voor stap begeleiden bij het invullen van het formulier. Hij zal het formulier niet voor jou invullen.';
-                var popupTextUnavailable = 'Al onze medewerkers zijn momenteel onbeschikbaar. Gelieve later opnieuw te proberen.';
+
                 var chatWindow;
 
+                vm.available;
+                vm.occupied = false;
                 vm.popupOpen = false;
-                vm.buttonText;
-                vm.popupText;
 
                 function getChatAvailabilty() {
                     var chatAvailability = chatproxyService.checkAvailability($scope.entitykey);
@@ -32,14 +31,18 @@
                 }
 
                 function buttonClick() {
+                    var chattersAvailable = getChattersAvailability();
+
+                    // Check if a chat window is already open
                     if (chatWindow && !chatWindow.closed) {
+                        // if so focus back on the window and end here
                         chatWindow.focus();
                         return;
                     }
 
                     if (vm.available) {
                         // Chat is available
-                        if (getChattersAvailability()) {
+                        if (chattersAvailable) {
                             // Chatter is also available => open window with chat url
                             var windowURL = getChatURL();
                             var windowName = 'Chatservicer_window';
@@ -48,26 +51,26 @@
                             chatWindow = window.open(windowURL, windowName, windowFeatures);
                         } else {
                             // Chatters are all occupied => show popup with message + set chat availability to false
-                            vm.popupText = popupTextUnavailable;
+                            vm.occupied = true;
                             vm.popupOpen = !vm.popupOpen;
 
                             vm.available = false;
                         }
                     } else {
                         // Chat is unavailable
-                        if (vm.popupOpen && vm.popupText === popupTextUnavailable) {
+                        if (vm.popupOpen && !chattersAvailable) {
                             // Close popup if it was open with unavailable text
                             vm.popupOpen = false;
                         } else {
                             // Toggle popup with standard info
+                            vm.occupied = false;
                             vm.popupOpen = !vm.popupOpen;
-                            vm.popupText = popupTextInfo;
                         }
                     }
                 }
 
-                vm.available = getChatAvailabilty();
                 vm.buttonClick = buttonClick;
+                vm.getChatAvailability = getChatAvailability;
             }
         ]);
 
