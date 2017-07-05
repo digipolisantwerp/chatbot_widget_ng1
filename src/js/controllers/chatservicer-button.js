@@ -5,21 +5,49 @@
         .module('akit.component.chatservicerButton')
         .controller('akit.component.chatservicerButton.chatservicerButtonController', [
             '$scope',
+            '$timeout',
             'akit.component.chatservicerButto.chatproxyService',
-            function ($scope, chatproxyService) {
+            function ($scope, $timeout, chatproxyService) {
                 var vm = this;
 
                 var chatWindow;
+                var pollTime = 1000;
+                var errorCount = 0;
+                var pollPromise;
 
                 vm.available;
                 vm.occupied = false;
                 vm.popupOpen = false;
 
-                function getChatAvailabilty() {
-                    var chatAvailability = chatproxyService.checkAvailability($scope.entitykey);
-                    return chatAvailability.data.available;
+                function getChatAvailability() {
+                    chatproxyService.getAvailability($scope.entitykey)
+                        .then(function (response) {
+                            vm.available = response.data.available;
+
+                            errorCount = 0;
+                            nextPoll();
+                        })
+                        .catch(function (response) {
+                            vm.available = false;
+                            errorCount += 1;
+                            nextPoll(errorCount * 2 * pollTime);
+                        });
                 }
 
+                function nextPoll(time) {
+                    time = time || pollTime;
+
+                    // Clear last timeout before starting a new one
+                    cancelPoll();
+                    pollPromise = $timeout(getChatAvailability, time);
+                }
+
+                function cancelPoll() {
+                    $timeout.cancel(pollPromise);
+                }
+
+                // TODO: This will have to go
+                // we will check if we get a url or not with getChatURL()
                 function getChattersAvailability() {
                     var chatters = chatproxyService.getChatURL($scope.entitykey);
                     return chatters.success;
@@ -70,6 +98,7 @@
                 }
 
                 vm.buttonClick = buttonClick;
+                vm.cancelPoll = cancelPoll;
                 vm.getChatAvailability = getChatAvailability;
             }
         ]);

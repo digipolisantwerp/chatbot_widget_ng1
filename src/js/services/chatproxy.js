@@ -5,32 +5,45 @@
         .module('akit.component.chatservicerButton')
         .service('akit.component.chatservicerButto.chatproxyService', [
             '$http',
+            '$interval',
+            '$q',
             'akit.component.chatservicerButton.chatproxyConfig',
-            function ($http, chatproxyConfig) {
+            function ($http, $interval, $q, chatproxyConfig) {
 
                 var API = {};
 
-                function checkAvailability(entitykey) {
-                    // Call
-                    // return $http.get(chatproxyConfig.chatproxyServiceUrl + 'availability?entitykey=' + entitykey)
-                    //     .then(function (response) {
-                    //         return response.data;
-                    //     });
-                    // Response example
-                    // {
-                    //     "success": true,
-                    //     "data": {
-                    //         "available": true,
-                    //         // mogelijks meer properties maar momenteel geen idee of je ook departement of key terug krijgt ergens.
-                    //     }
-                    // }
+                // Dummy data object for getAvailability call
+                var delay = 10;
+                var availabilityData = {
+                    "success": true,
+                    "data": {
+                        "available": true
+                    }
+                };
+                // Interval function to see if chat button gets updated
+                $interval(function () {
+                    var newData = !availabilityData.data.available;
+                    availabilityData.data.available = newData;
+                }, 1000 * delay);
 
-                    return {
-                        "success": true,
-                        "data": {
-                            "available": false
+                function getAvailability(entitykey) {
+                    // Call (return promise instead of data object)
+                    // return $http.get(chatproxyConfig.chatproxyServiceUrl + 'availability?entitykey=' + entitykey);
+
+                    function promise(data) {
+                        var deferred = $q.defer();
+
+                        if (data.success) {
+                            deferred.resolve(data);
+                        } else {
+                            deferred.reject(data);
                         }
-                    };
+
+                        return deferred.promise;
+                    }
+
+                    // Return dummy promise
+                    return promise(availabilityData);
                 }
 
                 function getChatURL(entitykey) {
@@ -39,24 +52,17 @@
                     //     .then(function (response) {
                     //         return response.data;
                     //     });
-                    // Response example
-                    // {
-                    //     "success": true,
-                    //         "data": {
-                    //         "url": "http://.......",
-                    //         // mogelijks meer properties maar momenteel geen idee of je ook departement of key terug krijgt ergens.
-                    //     }
-                    // }
 
+                    // Response example
                     return {
-                        "success": true,
+                        "success": false,
                         "data": {
                             "url": "http://www.google.be"
                         }
                     };
                 }
 
-                API.checkAvailability = checkAvailability;
+                API.getAvailability = getAvailability;
                 API.getChatURL = getChatURL;
 
                 return API;

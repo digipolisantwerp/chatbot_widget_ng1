@@ -22,14 +22,21 @@
                         }
 
                         function initialize() {
+                            ctrl.getChatAvailability();
                             updateChatButton();
-
-                            scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
-                                if (newValue !== oldValue) {
-                                    updateChatButton();
-                                }
-                            });
                         }
+
+                        scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
+                            var availabilityChanged = newValue !== oldValue && !ctrl.occupied;
+                            var availableAndOccupied = newValue !== oldValue && newValue === true && ctrl.occupied;
+                            if ((availabilityChanged) || (availableAndOccupied)) {
+                                updateChatButton();
+                            }
+                        });
+
+                        scope.$on('$destroy', function () {
+                            ctrl.cancelPoll();
+                        });
 
                         initialize();
                     }
