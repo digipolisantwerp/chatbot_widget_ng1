@@ -42,15 +42,15 @@
                     pollPromise = $timeout(getChatAvailability, time);
                 }
 
-                function cancelPoll() {
-                    $timeout.cancel(pollPromise);
+                function restartPoll(delay) {
+                    delay = delay || 4000;
+
+                    cancelPoll();
+                    $timeout(nextPoll, delay);
                 }
 
-                // TODO: This will have to go
-                // we will check if we get a url or not with getChatURL()
-                function getChattersAvailability() {
-                    var chatters = chatproxyService.getChatURL($scope.entitykey);
-                    return chatters.success;
+                function cancelPoll() {
+                    $timeout.cancel(pollPromise);
                 }
 
                 function getChatURL() {
