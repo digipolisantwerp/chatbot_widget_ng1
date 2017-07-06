@@ -1,0 +1,3 @@
+.chatservicer-button{position:fixed;right:0;bottom:0;z-index:5}.chatservicer-button .button{z-index:1;margin:0}.chatservicer-button__popup{position:absolute;right:0;bottom:100%;z-index:0;width:100%;padding:1.5rem 1rem;background:#F3F3F5;opacity:0;transform:translateY(1.5rem);visibility:hidden;transition:visibility 0s 200ms ease-in-out,opacity 200ms ease-in-out,transform 200ms ease-in-out}.chatservicer-button__popup.is-open{opacity:1;transform:translateY(0);visibility:visible;transition-delay:0s}.chatservicer-button__popup p{margin:0}
+
+/*# sourceMappingURL=akit.component.chatservicer-button.min.css.map */
