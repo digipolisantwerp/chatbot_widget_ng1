@@ -39,19 +39,12 @@
                         });
                 }
 
-                function nextPoll(time) {
-                    time = time || pollTime;
+                function nextPoll(delay) {
+                    delay = delay || pollTime;
 
                     // Clear last timeout before starting a new one
                     cancelPoll();
-                    pollPromise = $timeout(getChatAvailability, time);
-                }
-
-                function restartPoll(delay) {
-                    delay = delay || 4000;
-
-                    cancelPoll();
-                    $timeout(nextPoll, delay);
+                    pollPromise = $timeout(getChatAvailability, delay);
                 }
 
                 function cancelPoll() {
@@ -113,6 +106,7 @@
                 }
 
                 vm.buttonClick = buttonClick;
+                vm.nextPoll = nextPoll;
                 vm.cancelPoll = cancelPoll;
                 vm.getChatAvailability = getChatAvailability;
             }
