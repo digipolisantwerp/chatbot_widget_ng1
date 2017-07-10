@@ -46,7 +46,7 @@
                         $window.addEventListener('focus', function () {
                             if (ctrl.chatWindow && ctrl.chatWindow.closed) {
                                 ctrl.disabled = false;
-                                ctrl.nextPoll(5000);
+                                ctrl.nextPoll();
                             }
                         });
 
