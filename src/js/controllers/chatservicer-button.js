@@ -64,35 +64,45 @@
                 }
 
                 function buttonClick() {
-                    var chattersAvailable = getChattersAvailability();
+                    var chatUrlAvailable = getChatURL() || false;
 
                     // Check if a chat window is already open
-                    if (chatWindow && !chatWindow.closed) {
-                        // if so focus back on the window and end here
-                        chatWindow.focus();
-                        return;
+                    if (vm.chatWindow) {
+                        if (!vm.chatWindow.closed) {
+                            // if so focus back on the window and end here
+                            vm.chatWindow.focus();
+                            return;
+                        } else {
+                            vm.disabled = false;
+                        }
                     }
 
                     if (vm.available) {
                         // Chat is available
-                        if (chattersAvailable) {
-                            // Chatter is also available => open window with chat url
-                            var windowURL = getChatURL();
+                        if (chatUrlAvailable) {
+                            // Chat agent is also available => Stop polling + open window with chat url
+                            cancelPoll();
+
+                            var windowURL = chatUrlAvailable;
                             var windowName = 'Chatservicer_window';
                             var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
 
-                            chatWindow = window.open(windowURL, windowName, windowFeatures);
+                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                            vm.disabled = true;
                         } else {
-                            // Chatters are all occupied => show popup with message + set chat availability to false
+                            // Chat agents are all occupied => show popup with message + set chat availability to false
                             vm.occupied = true;
                             vm.popupOpen = !vm.popupOpen;
 
                             vm.available = false;
+
+                            // Restart polling after 5 seconds to avoid closing of popup when availability changes
+                            nextPoll(5000);
                         }
                     } else {
                         // Chat is unavailable
-                        if (vm.popupOpen && !chattersAvailable) {
-                            // Close popup if it was open with unavailable text
+                        if (vm.popupOpen && vm.occupied) {
+                            // Close popup if it was open with occupied text
                             vm.popupOpen = false;
                         } else {
                             // Toggle popup with standard info
