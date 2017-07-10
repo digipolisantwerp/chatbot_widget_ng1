@@ -4,8 +4,8 @@
     ng
         .module('akit.component.chatservicerButton')
         .directive('chatservicerButton', [
-
-            function () {
+            '$window',
+            function ($window) {
 
                 return {
                     restrict: 'AE',
@@ -36,6 +36,13 @@
 
                         scope.$on('$destroy', function () {
                             ctrl.cancelPoll();
+                        });
+
+                        $window.addEventListener('focus', function () {
+                            if (ctrl.chatWindow && ctrl.chatWindow.closed) {
+                                ctrl.disabled = false;
+                                ctrl.nextPoll(5000);
+                            }
                         });
 
                         initialize();
