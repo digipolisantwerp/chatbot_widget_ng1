@@ -34,6 +34,7 @@
                         })
                         .catch(function (response) {
                             vm.available = false;
+
                             errorCount += 1;
                             nextPoll(errorCount * 2 * pollTime);
                         });
@@ -86,7 +87,6 @@
                             // Chat agents are all occupied => show popup with message + set chat availability to false
                             vm.occupied = true;
                             vm.popupOpen = !vm.popupOpen;
-
                             vm.available = false;
 
                             // Restart polling after 5 seconds to avoid closing of popup when availability changes

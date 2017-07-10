@@ -27,10 +27,11 @@
                         }
 
                         scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
-                            var availabilityChanged = newValue !== oldValue && !ctrl.occupied;
-                            var availableAndOccupied = newValue !== oldValue && newValue === true && ctrl.occupied;
-                            if ((availabilityChanged) || (availableAndOccupied)) {
-                                updateChatButton();
+                            if (newValue !== oldValue && !ctrl.disabled) {
+                                if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
+                                    updateChatButton();
+                                    ctrl.nextPoll(2000);
+                                }
                             }
                         });
 
