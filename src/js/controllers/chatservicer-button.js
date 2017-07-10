@@ -7,15 +7,20 @@
             '$scope',
             '$timeout',
             'akit.component.chatservicerButto.chatproxyService',
-            function ($scope, $timeout, chatproxyService) {
+            function (
+                $scope,
+                $timeout,
+                chatproxyService
+            ) {
                 var vm = this;
 
-                var chatWindow;
                 var pollTime = 1000;
                 var errorCount = 0;
                 var pollPromise;
 
+                vm.chatWindow;
                 vm.available;
+                vm.disabled = false;
                 vm.occupied = false;
                 vm.popupOpen = false;
 
