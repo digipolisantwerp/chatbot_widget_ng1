@@ -4,8 +4,12 @@
     ng
         .module('akit.component.chatservicerButton')
         .directive('chatservicerButton', [
+            '$timeout',
             '$window',
-            function ($window) {
+            function (
+                $timeout,
+                $window
+            ) {
 
                 return {
                     restrict: 'AE',
@@ -44,10 +48,14 @@
                         });
 
                         $window.addEventListener('focus', function () {
-                            if (ctrl.chatWindow && ctrl.chatWindow.closed) {
-                                ctrl.disabled = false;
-                                ctrl.nextPoll();
-                            }
+                            // Had to wrap in timeout because chatwindow.closed wasn't
+                            // being set directly to false when it was closed in Firefox
+                            $timeout(function () {
+                                if (ctrl.chatWindow.closed) {
+                                    ctrl.disabled = false;
+                                    ctrl.nextPoll();
+                                }
+                            });
                         });
 
                         initialize();
