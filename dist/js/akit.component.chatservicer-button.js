@@ -34,15 +34,22 @@
             '$scope',
             '$timeout',
             'akit.component.chatservicerButto.chatproxyService',
-            function ($scope, $timeout, chatproxyService) {
+            function (
+                $scope,
+                $timeout,
+                chatproxyService
+            ) {
                 var vm = this;
 
-                var chatWindow;
                 var pollTime = 1000;
                 var errorCount = 0;
                 var pollPromise;
 
+                vm.chatWindow = {
+                    closed: true
+                };
                 vm.available;
+                vm.disabled = false;
                 vm.occupied = false;
                 vm.popupOpen = false;
 
@@ -56,25 +63,21 @@
                         })
                         .catch(function (response) {
                             vm.available = false;
+
                             errorCount += 1;
                             nextPoll(errorCount * 2 * pollTime);
                         });
                 }
 
-                function nextPoll(time) {
-                    time = time || pollTime;
+                function nextPoll(delay) {
+                    delay = delay || pollTime;
 
                     cancelPoll();
-                    pollPromise = $timeout(getChatAvailability, time);
+                    pollPromise = $timeout(getChatAvailability, delay);
                 }
 
                 function cancelPoll() {
                     $timeout.cancel(pollPromise);
-                }
-
-                function getChattersAvailability() {
-                    var chatters = chatproxyService.getChatURL($scope.entitykey);
-                    return chatters.success;
                 }
 
                 function getChatURL() {
@@ -82,29 +85,35 @@
                     return chatURL.data.url;
                 }
 
-                function buttonClick() {
-                    var chattersAvailable = getChattersAvailability();
+                function clickHandler() {
+                    var chatUrlAvailable = getChatURL() || false;
 
-                    if (chatWindow && !chatWindow.closed) {
-                        chatWindow.focus();
+                    if (!vm.chatWindow.closed) {
+                        vm.chatWindow.focus();
                         return;
+                    } else {
+                        vm.disabled = false;
                     }
 
                     if (vm.available) {
-                        if (chattersAvailable) {
-                            var windowURL = getChatURL();
-                            var windowName = 'Chatservicer_window';
+                        if (chatUrlAvailable) {
+                            cancelPoll();
+
+                            var windowURL = chatUrlAvailable;
+                            var windowName = 'chatservicer_window';
                             var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
 
-                            chatWindow = window.open(windowURL, windowName, windowFeatures);
+                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                            vm.disabled = true;
                         } else {
                             vm.occupied = true;
                             vm.popupOpen = !vm.popupOpen;
-
                             vm.available = false;
+
+                            nextPoll(5000);
                         }
                     } else {
-                        if (vm.popupOpen && !chattersAvailable) {
+                        if (vm.popupOpen && vm.occupied) {
                             vm.popupOpen = false;
                         } else {
                             vm.occupied = false;
@@ -113,7 +122,8 @@
                     }
                 }
 
-                vm.buttonClick = buttonClick;
+                vm.clickHandler = clickHandler;
+                vm.nextPoll = nextPoll;
                 vm.cancelPoll = cancelPoll;
                 vm.getChatAvailability = getChatAvailability;
             }
@@ -127,8 +137,12 @@
     ng
         .module('akit.component.chatservicerButton')
         .directive('chatservicerButton', [
-
-            function () {
+            '$timeout',
+            '$window',
+            function (
+                $timeout,
+                $window
+            ) {
 
                 return {
                     restrict: 'AE',
@@ -150,15 +164,28 @@
                         }
 
                         scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
-                            var availabilityChanged = newValue !== oldValue && !ctrl.occupied;
-                            var availableAndOccupied = newValue !== oldValue && newValue === true && ctrl.occupied;
-                            if ((availabilityChanged) || (availableAndOccupied)) {
-                                updateChatButton();
+                            if (newValue !== oldValue && !ctrl.disabled) {
+                                if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
+                                    updateChatButton();
+                                    ctrl.nextPoll(2000);
+                                }
                             }
                         });
 
                         scope.$on('$destroy', function () {
+                            if (!ctrl.chatWindow.closed) {
+                                ctrl.chatWindow.close();
+                            }
                             ctrl.cancelPoll();
+                        });
+
+                        $window.addEventListener('focus', function () {
+                            $timeout(function () {
+                                if (ctrl.chatWindow.closed) {
+                                    ctrl.disabled = false;
+                                    ctrl.nextPoll();
+                                }
+                            });
                         });
 
                         initialize();
@@ -233,4 +260,4 @@
 
 })(window.angular);
 
-angular.module("akit.component.chatservicerButton").run(["$templateCache", function($templateCache) {$templateCache.put("/assets/chatservicer-button/views/directives/chatservicer-button.htm","<div class=\"chatservicer-button\">\n    <button type=\"button\"\n            class=\"button has-icon\"\n            ng-class=\"{\'success\': chatservicer.available}\"\n            ng-click=\"chatservicer.buttonClick()\">\n        <span class=\"fa fa-comments\"></span>\n        <span ng-if=\"chatservicer.available\">\n            <span translate>Chat met een medewerker</span>\n        </span>\n        <span ng-if=\"!chatservicer.available\">\n            <span translate>Hulp nodig bij het invullen?</span>\n        </span>\n    </button>\n\n    <div class=\"chatservicer-button__popup\"\n         ng-class=\"{\'is-open\': chatservicer.popupOpen}\">\n        <div ng-if=\"!chatservicer.available && !chatservicer.occupied\">\n            <p translate>\n                Elke werkdag (van maandag tot en met vrijdag) kan je tussen 9u en 17u online hulp inroepen bij het invullen van een formulier in het e-loket. Je kan een (video)chat starten met een medewerker. De medewerker zal je stap voor stap begeleiden bij het invullen van het formulier. Hij zal het formulier niet voor jou invullen.\n            </p>\n        </div>\n        <div ng-if=\"chatservicer.occupied\">\n            <p translate>Al onze medewerkers zijn momenteel onbeschikbaar. Gelieve later opnieuw te proberen.</p>\n        </div>\n    </div>\n</div>");}]);
+angular.module("akit.component.chatservicerButton").run(["$templateCache", function($templateCache) {$templateCache.put("/assets/chatservicer-button/views/directives/chatservicer-button.htm","<div class=\"chatservicer-button\">\n    <button type=\"button\"\n            class=\"button has-icon\"\n            ng-class=\"{\'success\': chatservicer.available}\"\n            ng-click=\"chatservicer.clickHandler()\">\n        <span class=\"fa fa-comments\"></span>\n        <span ng-if=\"chatservicer.available\">\n            <span translate>Chat met een medewerker</span>\n        </span>\n        <span ng-if=\"!chatservicer.available\">\n            <span translate>Hulp nodig bij het invullen?</span>\n        </span>\n    </button>\n\n    <div class=\"chatservicer-button__popup\"\n         ng-class=\"{\'is-open\': chatservicer.popupOpen}\">\n        <div ng-if=\"!chatservicer.available && !chatservicer.occupied\">\n            <p translate>\n                Elke werkdag (van maandag tot en met vrijdag) kan je tussen 9u en 17u online hulp inroepen bij het invullen van een formulier in het e-loket. Je kan een (video)chat starten met een medewerker. De medewerker zal je stap voor stap begeleiden bij het invullen van het formulier. Hij zal het formulier niet voor jou invullen.\n            </p>\n        </div>\n        <div ng-if=\"chatservicer.occupied\">\n            <p translate>Al onze medewerkers zijn momenteel onbeschikbaar. Gelieve later opnieuw te proberen.</p>\n        </div>\n    </div>\n</div>");}]);
