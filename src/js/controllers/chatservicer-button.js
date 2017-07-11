@@ -57,7 +57,7 @@
                     return chatURL.data.url;
                 }
 
-                function buttonClick() {
+                function clickHandler() {
                     var chatUrlAvailable = getChatURL() || false;
 
                     // Check if a chat window is already open
@@ -78,7 +78,7 @@
                             cancelPoll();
 
                             var windowURL = chatUrlAvailable;
-                            var windowName = 'Chatservicer_window';
+                            var windowName = 'chatservicer_window';
                             var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
 
                             vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
@@ -95,7 +95,7 @@
                     } else {
                         // Chat is unavailable
                         if (vm.popupOpen && vm.occupied) {
-                            // Close popup if it was open with occupied text
+                            // Close popup if it was open when occupied
                             vm.popupOpen = false;
                         } else {
                             // Toggle popup with standard info
@@ -105,7 +105,7 @@
                     }
                 }
 
-                vm.buttonClick = buttonClick;
+                vm.clickHandler = clickHandler;
                 vm.nextPoll = nextPoll;
                 vm.cancelPoll = cancelPoll;
                 vm.getChatAvailability = getChatAvailability;
