@@ -18,7 +18,9 @@
                 var errorCount = 0;
                 var pollPromise;
 
-                vm.chatWindow;
+                vm.chatWindow = {
+                    closed: true
+                };
                 vm.available;
                 vm.disabled = false;
                 vm.occupied = false;
@@ -61,14 +63,12 @@
                     var chatUrlAvailable = getChatURL() || false;
 
                     // Check if a chat window is already open
-                    if (vm.chatWindow) {
-                        if (!vm.chatWindow.closed) {
-                            // if so focus back on the window and end here
-                            vm.chatWindow.focus();
-                            return;
-                        } else {
-                            vm.disabled = false;
-                        }
+                    if (!vm.chatWindow.closed) {
+                        // if so focus back on the window and end here
+                        vm.chatWindow.focus();
+                        return;
+                    } else {
+                        vm.disabled = false;
                     }
 
                     if (vm.available) {

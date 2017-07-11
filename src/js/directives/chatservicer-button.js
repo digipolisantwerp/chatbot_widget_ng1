@@ -37,7 +37,7 @@
 
                         scope.$on('$destroy', function () {
                             // Close chat window and cancel polling if scope is destroyed
-                            if (ctrl.chatWindow && !ctrl.chatWindow.closed) {
+                            if (!ctrl.chatWindow.closed) {
                                 ctrl.chatWindow.close();
                             }
                             ctrl.cancelPoll();
