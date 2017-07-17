@@ -1,0 +1,418 @@
+/*
+    CHATSERVICER WINDOW STYLING (DO NOT REMOVE)
+    -----
+    Styling for chat window provided by teleportel
+    (https://talk.attendedbyhumans.com/tbv1/call_chat_design.php?agent=santwerp)
+*/
+
+/*
+    Font families
+    -----
+    TODO: Set absolute paths for font files
+*/
+
+@font-face {
+    font-family: "Antwerpen";
+    src: url("../fonts/antwerpen_regular-webfont.eot");
+    src: url("../fonts/antwerpen_regular-webfont.eot?#iefix") format("embedded-opentype"),
+         url("../fonts/antwerpen_regular-webfont.woff2") format("woff2"),
+         url("../fonts/antwerpen_regular-webfont.woff") format("woff"),
+         url("../fonts/antwerpen_regular-webfont.ttf") format("truetype"),
+         url("../fonts/antwerpen_regular-webfont.svg#antwerpenregular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Antwerpen-Tall";
+    src: url("../fonts/antwerpen_tall-webfont.eot");
+    src: url("../fonts/antwerpen_tall-webfont.eot?#iefix") format("embedded-opentype"),
+         url("../fonts/antwerpen_tall-webfont.woff2") format("woff2"),
+         url("../fonts/antwerpen_tall-webfont.woff") format("woff"),
+         url("../fonts/antwerpen_tall-webfont.ttf") format("truetype"),
+         url("../fonts/antwerpen_tall-webfont.svg#antwerpen_talltall") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Sun Regular";
+    src: url("../fonts/SunAntwerpen_300.eot");
+    src: url("../fonts/SunAntwerpen_300?#iefix") format("embedded-opentype"),
+         url("../fonts/SunAntwerpen_300.woff") format("woff"),
+         url("../fonts/SunAntwerpen_300#SunAntwerpen_300") format("svg");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Sun Regular";
+    src: url("../fonts/SunAntwerpen_300_italic.eot");
+    src: url("../fonts/SunAntwerpen_300_italic?#iefix") format("embedded-opentype"),
+         url("../fonts/SunAntwerpen_300_italic.woff") format("woff"),
+         url("../fonts/SunAntwerpen_300_italic#SunAntwerpen_300_italic") format("svg");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Sun Regular";
+    src: url("../fonts/SunAntwerpen_500.eot");
+    src: url("../fonts/SunAntwerpen_500?#iefix") format("embedded-opentype"),
+         url("../fonts/SunAntwerpen_500.woff") format("woff"),
+         url("../fonts/SunAntwerpen_500#SunAntwerpen_500") format("svg");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Sun Regular";
+    src: url("../fonts/SunAntwerpen_500_italic.eot");
+    src: url("../fonts/SunAntwerpen_500_italic?#iefix") format("embedded-opentype"),
+         url("../fonts/SunAntwerpen_500_italic.woff") format("woff"),
+         url("../fonts/SunAntwerpen_500_italic#SunAntwerpen_500_italic") format("svg");
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Sun Regular";
+    src: url("../fonts/SunAntwerpen_700.eot");
+    src: url("../fonts/SunAntwerpen_700?#iefix") format("embedded-opentype"),
+         url("../fonts/SunAntwerpen_700.woff") format("woff"),
+         url("../fonts/SunAntwerpen_700#sunregular") format("svg");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Sun Regular";
+    src: url("../fonts/SunAntwerpen_700_italic.eot");
+    src: url("../fonts/SunAntwerpen_700_italic?#iefix") format("embedded-opentype"),
+         url("../fonts/SunAntwerpen_700_italic.woff") format("woff"),
+         url("../fonts/SunAntwerpen_700_italic#SunAntwerpen_700_italic") format("svg");
+    font-weight: 700;
+    font-style: italic;
+}
+
+/*
+    BASE
+    -----
+*/
+
+html,
+body {
+    overflow: hidden;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+    width: 100vw;
+    height: 100vh;
+    padding: 1.5rem 2rem 1rem;
+
+    font-family: "Sun Regular", "Helvetica Neue", Helvetica, Arial, Georgia, Sans-serif;
+    font-size: 0.875rem;
+
+    background: #E5E5E6;
+    color: #282020;
+}
+
+body:before {
+    content: none;
+}
+
+/*
+    NOTIFICATION
+    -----
+*/
+
+#display_short {
+    right: 0;
+
+    padding: 0.5rem 1rem;
+    border-radius: 0;
+
+    background: #F18A00;
+}
+
+/*
+    MAIN CONTENT WRAPPER
+    -----
+*/
+
+#main {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
+#plugin_install {
+    padding: 0;
+}
+
+/* Chat header */
+
+.chat_header {
+    padding: 0 0 0.5rem;
+}
+
+/* Chat header: avatar */
+.chat_header img {
+    display: block;
+    width: 3rem !important;
+    margin-right: 0.5rem;
+}
+
+/* Chat header: language links */
+.chat_header span {
+    display: inline-block;
+
+    vertical-align: middle;
+}
+
+.chat_header span[onclick] {
+    cursor: pointer;
+    margin: 0 0.5rem;
+
+    transition: color 250ms ease-out;
+}
+
+.chat_header span[onclick]:hover {
+    color: #0064B4;
+}
+
+/* Chat header: close button */
+.chat_header button.close {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: 0.375rem;
+
+    font-size: 1px;
+    letter-spacing: -1px;
+    text-shadow: none;
+
+    color: transparent;
+    opacity: 1;
+    transition: background 250ms ease-out;
+}
+
+.chat_header button.close:before {
+    content: "\f00d";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1.35rem;
+    letter-spacing: normal;
+    line-height: 2.25rem;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: #7C7070;
+    transition: color 250ms ease-out;
+}
+
+.chat_header button.close:hover {
+    background: #DA291C;
+}
+
+.chat_header button.close:hover:before {
+    color: #FFFFFF;
+}
+
+/*
+    Messages wrapper
+    -------
+*/
+
+.white-back-bg {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+
+    padding: 0 !important;
+    border-radius: 0;
+}
+
+/* Messages: chatbox */
+
+.messages {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    height: 100%;
+}
+
+/* Messages: input and send button */
+
+.bottom_wrapper {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.bottom_wrapper:before,
+.bottom_wrapper:after {
+    content: none;
+}
+
+/* Messages: input */
+.message_input_wrapper {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 0;
+    border-color: #BABABA;
+    border-radius: 0;
+    border-right: none;
+}
+
+.message_input_wrapper span {
+    float: right;
+    height: 3rem;
+    margin-top: -1px;
+}
+
+.message_input {
+    padding: 0 4.5rem 0 1.5rem;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #614D4D
+}
+
+.message_input:placeholder {
+    font-style: italic;
+    font-weight: normal;
+    color: #7C7070 !important;
+}
+
+.message_input:-ms-input-placeholder{
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+.message_input:-moz-placeholder {
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+.message_input::-moz-placeholder{
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+.message_input::-webkit-input-placeholder {
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+/* Messages: upload button */
+#clip_upload {
+    width: 3rem;
+    height: 100%;
+
+    font-size: 1.35rem;
+    line-height: 3rem;
+    text-align: center;
+
+    background: #90ABBC;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+}
+
+#clip_upload:focus,
+#clip_upload:hover {
+    background: #678CA3;
+}
+
+/* Messages: chat status indicator */
+.company_on,
+.company_off {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.company_on {
+    background: #4AA32C;
+}
+
+.company_off {
+    background: #BABABA;
+}
+
+/* Messages: send button */
+.send_message {
+    float: none;
+
+    border-radius: 0;
+
+    font-family: "Sun Regular", "Helvetica Neue", Helvetica, Arial, Georgia, Sans-serif;
+    text-transform: none;
+
+    background: #0064B4;
+}
+
+.send_message:hover {
+    background: #003f72;
+}
+
+.send_message i {
+    font-style: normal;
+}
+
+/*
+    SLOGAN
+    -----
+*/
+
+#slogan {
+    padding-top: 0.5rem;
+}
+
+/*
+    MEDIA QUERIES
+    -----
+*/
+
+@media screen and (max-width: 767px) and (min-width: 100px) {
+    body {
+        padding: 1rem!important;
+    }
+
+    #display_short {
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 1125px) and (min-width: 767px) {
+    body {
+        padding: 1rem !important;
+    }
+
+    #display_short {
+        right: 0;
+    }
+}
