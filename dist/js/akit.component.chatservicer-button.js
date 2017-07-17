@@ -30,112 +30,6 @@
 
     ng
         .module('akit.component.chatservicerButton')
-        .controller('akit.component.chatservicerButton.chatservicerButtonController', [
-            '$scope',
-            '$timeout',
-            'akit.component.chatservicerButto.chatproxyService',
-            function (
-                $scope,
-                $timeout,
-                chatproxyService
-            ) {
-                var vm = this;
-
-                var pollTime = 1000;
-                var errorCount = 0;
-                var pollPromise;
-
-                vm.chatWindow = {
-                    closed: true
-                };
-                vm.available;
-                vm.disabled = false;
-                vm.occupied = false;
-                vm.popupOpen = false;
-
-                function getChatAvailability() {
-                    chatproxyService.getAvailability($scope.entitykey)
-                        .then(function (response) {
-                            vm.available = response.data.available;
-
-                            errorCount = 0;
-                            nextPoll();
-                        })
-                        .catch(function (response) {
-                            vm.available = false;
-
-                            errorCount += 1;
-                            nextPoll(errorCount * 2 * pollTime);
-                        });
-                }
-
-                function nextPoll(delay) {
-                    delay = delay || pollTime;
-
-                    cancelPoll();
-                    pollPromise = $timeout(getChatAvailability, delay);
-                }
-
-                function cancelPoll() {
-                    $timeout.cancel(pollPromise);
-                }
-
-                function getChatURL() {
-                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
-                    return chatURL.data.url;
-                }
-
-                function clickHandler() {
-                    var chatUrlAvailable = getChatURL() || false;
-
-                    if (!vm.chatWindow.closed) {
-                        vm.chatWindow.focus();
-                        return;
-                    } else {
-                        vm.disabled = false;
-                    }
-
-                    if (vm.available) {
-                        if (chatUrlAvailable) {
-                            cancelPoll();
-
-                            var windowURL = chatUrlAvailable;
-                            var windowName = 'chatservicer_window';
-                            var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
-
-                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
-                            vm.disabled = true;
-                        } else {
-                            vm.occupied = true;
-                            vm.popupOpen = !vm.popupOpen;
-                            vm.available = false;
-
-                            nextPoll(5000);
-                        }
-                    } else {
-                        if (vm.popupOpen && vm.occupied) {
-                            vm.popupOpen = false;
-                        } else {
-                            vm.occupied = false;
-                            vm.popupOpen = !vm.popupOpen;
-                        }
-                    }
-                }
-
-                vm.clickHandler = clickHandler;
-                vm.nextPoll = nextPoll;
-                vm.cancelPoll = cancelPoll;
-                vm.getChatAvailability = getChatAvailability;
-            }
-        ]);
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
         .directive('chatservicerButton', [
             '$timeout',
             '$window',
@@ -202,6 +96,112 @@
 
     ng
         .module('akit.component.chatservicerButton')
+        .controller('akit.component.chatservicerButton.chatservicerButtonController', [
+            '$scope',
+            '$timeout',
+            'akit.component.chatservicerButto.chatproxyService',
+            function (
+                $scope,
+                $timeout,
+                chatproxyService
+            ) {
+                var vm = this;
+
+                var pollTime = 1000;
+                var errorCount = 0;
+                var pollPromise;
+
+                vm.chatWindow = {
+                    closed: true
+                };
+                vm.available;
+                vm.disabled = false;
+                vm.occupied = false;
+                vm.popupOpen = false;
+
+                function getChatAvailability() {
+                    chatproxyService.getAvailability($scope.entitykey)
+                        .then(function (response) {
+                            vm.available = response.data.available;
+
+                            errorCount = 0;
+                            nextPoll();
+                        })
+                        .catch(function (response) {
+                            vm.available = false;
+
+                            errorCount += 1;
+                            nextPoll(errorCount * 2 * pollTime);
+                        });
+                }
+
+                function nextPoll(delay) {
+                    delay = delay || pollTime;
+
+                    cancelPoll();
+                    pollPromise = $timeout(getChatAvailability, delay);
+                }
+
+                function cancelPoll() {
+                    $timeout.cancel(pollPromise);
+                }
+
+                function getChatURL() {
+                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
+                    return chatURL.data.url;
+                }
+
+                function clickHandler() {
+                    var chatUrlAvailable = getChatURL();
+
+                    if (!vm.chatWindow.closed) {
+                        vm.chatWindow.focus();
+                        return;
+                    } else {
+                        vm.disabled = false;
+                    }
+
+                    if (vm.available) {
+                        if (chatUrlAvailable) {
+                            cancelPoll();
+
+                            var windowURL = chatUrlAvailable;
+                            var windowName = 'chatservicer_window';
+                            var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
+
+                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                            vm.disabled = true;
+                        } else {
+                            vm.occupied = true;
+                            vm.popupOpen = !vm.popupOpen;
+                            vm.available = false;
+
+                            nextPoll(5000);
+                        }
+                    } else {
+                        if (vm.popupOpen && vm.occupied) {
+                            vm.popupOpen = false;
+                        } else {
+                            vm.occupied = false;
+                            vm.popupOpen = !vm.popupOpen;
+                        }
+                    }
+                }
+
+                vm.clickHandler = clickHandler;
+                vm.nextPoll = nextPoll;
+                vm.cancelPoll = cancelPoll;
+                vm.getChatAvailability = getChatAvailability;
+            }
+        ]);
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
         .service('akit.component.chatservicerButto.chatproxyService', [
             '$http',
             '$interval',
@@ -218,6 +218,7 @@
                         "available": true
                     }
                 };
+
                 $interval(function () {
                     var newData = !availabilityData.data.available;
                     availabilityData.data.available = newData;
@@ -243,9 +244,9 @@
                 function getChatURL(entitykey) {
 
                     return {
-                        "success": false,
+                        "success": true,
                         "data": {
-                            "url": "http://www.google.be"
+                            "url": "https://talk.attendedbyhumans.com/tbv1/call_chat_design.php?agent=santwerp"
                         }
                     };
                 }

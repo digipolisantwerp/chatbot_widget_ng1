@@ -60,7 +60,7 @@
                 }
 
                 function clickHandler() {
-                    var chatUrlAvailable = getChatURL() || false;
+                    var chatUrlAvailable = getChatURL();
 
                     // Check if a chat window is already open
                     if (!vm.chatWindow.closed) {
