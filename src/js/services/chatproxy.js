@@ -20,6 +20,7 @@
                         "available": true
                     }
                 };
+
                 // Interval function to see if chat button gets updated
                 $interval(function () {
                     var newData = !availabilityData.data.available;
@@ -55,9 +56,9 @@
 
                     // Response example
                     return {
-                        "success": false,
+                        "success": true,
                         "data": {
-                            "url": "http://www.google.be"
+                            "url": "https://talk.attendedbyhumans.com/tbv1/call_chat_design.php?agent=santwerp"
                         }
                     };
                 }
