@@ -10,15 +10,19 @@
     <link rel="stylesheet" href="../bower_components/sasskit/dist/css/sasskit.css" />
     <!-- endbower -->
     <link rel="stylesheet" href="../dist/css/akit.component.chatservicer-button.css" />
+    <link rel="stylesheet" href="css/example.css" />
 </head>
 
 <body ng-app="chatservicerButton" ng-controller="chatservicerButtonCtrl">
     <a href="#"
-       class="button"
-       ng-click="switchAvailability()">Toggle availability</a>
+        class="button"
+        ng-click="switchAvailability()">Toggle availability</a>
 
-    <div chatservicer-button
-         entitykey="form.aanvraagVerlof"></div>
+        <div class="chat-button-wrapper">
+            <div chatservicer-button
+                entitykey="form.aanvraagVerlof"></div>
+            </div>
+        </div>
 
     <!-- bower:js -->
     <script src="../bower_components/angular/angular.js"></script>
