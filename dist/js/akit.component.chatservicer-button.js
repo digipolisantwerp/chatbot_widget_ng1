@@ -161,6 +161,8 @@
                         entitykey: '@',
                         urlWhenUnavailable: '@',
                         availabilityServiceUrl: '@',
+                        buttonText: '@',
+                        buttonTextNoAgent: '@',
                         getLinkServiceUrl: '@'
                     },
                     link: function (scope, element, attrs, ctrl) {
@@ -266,4 +268,4 @@
 
 })(window.angular);
 
-angular.module("akit.component.chatservicerButton").run(["$templateCache", function($templateCache) {$templateCache.put("/assets/chatservicer-button/views/directives/chatservicer-button.htm","<div class=\"chatservicer-button\">\n    <button type=\"button\"\n            class=\"button has-icon\"\n            ng-class=\"{\'success\': chatservicer.available}\"\n            ng-click=\"chatservicer.clickHandler(chatservicer.available)\">\n        <span class=\"fa fa-comments\"></span>\n        <span ng-if=\"chatservicer.available\">\n            <span translate>Chat met een medewerker</span>\n        </span>\n        <span ng-if=\"!chatservicer.available\">\n            <span translate>Hulp nodig bij het invullen?</span>\n        </span>\n    </button>\n</div>");}]);
+angular.module("akit.component.chatservicerButton").run(["$templateCache", function($templateCache) {$templateCache.put("/assets/chatservicer-button/views/directives/chatservicer-button.htm","<div class=\"chatservicer-button\">\n    <button type=\"button\"\n            class=\"button has-icon\"\n            ng-class=\"{\'success\': chatservicer.available}\"\n            ng-click=\"chatservicer.clickHandler(chatservicer.available)\">\n        <span class=\"fa fa-comments\"></span>\n        <span ng-if=\"chatservicer.available\">\n            <span>{{ buttonText || \'Chat met een medewerker\'}}</span>\n        </span>\n        <span ng-if=\"!chatservicer.available\">\n            <span>{{buttonTextNoAgent || \'Hulp nodig bij het invullen?\'}}</span>\n        </span>\n    </button>\n</div>");}]);
