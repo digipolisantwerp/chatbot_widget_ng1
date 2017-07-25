@@ -21,6 +21,8 @@
                         entitykey: '@',
                         urlWhenUnavailable: '@',
                         availabilityServiceUrl: '@',
+                        buttonText: '@',
+                        buttonTextNoAgent: '@',
                         getLinkServiceUrl: '@'
                     },
                     link: function (scope, element, attrs, ctrl) {

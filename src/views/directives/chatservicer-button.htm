@@ -5,10 +5,10 @@
             ng-click="chatservicer.clickHandler(chatservicer.available)">
         <span class="fa fa-comments"></span>
         <span ng-if="chatservicer.available">
-            <span translate>Chat met een medewerker</span>
+            <span>{{ buttonText || 'Chat met een medewerker'}}</span>
         </span>
         <span ng-if="!chatservicer.available">
-            <span translate>Hulp nodig bij het invullen?</span>
+            <span>{{buttonTextNoAgent || 'Hulp nodig bij het invullen?'}}</span>
         </span>
     </button>
 </div>
