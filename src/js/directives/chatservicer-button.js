@@ -18,22 +18,20 @@
                     controller: 'akit.component.chatservicerButton.chatservicerButtonController',
                     controllerAs: 'chatservicer',
                     scope: {
-                        entitykey: '@'
+                        entitykey: '@',
+                        urlWhenUnavailable: '@',
+                        availabilityServiceUrl: '@',
+                        getLinkServiceUrl: '@'
                     },
                     link: function (scope, element, attrs, ctrl) {
-                        function updateChatButton() {
-                            if (ctrl.popupOpen) ctrl.popupOpen = false;
-                        }
 
                         function initialize() {
                             ctrl.getChatAvailability();
-                            updateChatButton();
                         }
 
                         scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
                             if (newValue !== oldValue && !ctrl.disabled) {
                                 if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
-                                    updateChatButton();
                                     ctrl.nextPoll(2000);
                                 }
                             }

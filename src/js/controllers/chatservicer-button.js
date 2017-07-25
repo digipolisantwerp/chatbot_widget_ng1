@@ -59,7 +59,16 @@
                     return chatURL.data.url;
                 }
 
-                function clickHandler() {
+                function clickHandler(available) {
+                    var windowName = 'chatservicer_window';
+                    var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
+
+                    var windowUrl = $scope.urlWhenUnavailable || "https://www.google.com";
+                    if (!available) {
+                        window.open(windowUrl, windowName, windowFeatures);
+                        return;
+                    }
+
                     var chatUrlAvailable = getChatURL();
 
                     // Check if a chat window is already open
@@ -78,8 +87,6 @@
                             cancelPoll();
 
                             var windowURL = chatUrlAvailable;
-                            var windowName = 'chatservicer_window';
-                            var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
 
                             vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
                             vm.disabled = true;
