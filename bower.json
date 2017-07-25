@@ -1,6 +1,6 @@
 {
   "name": "akit-component-chatservicer-button",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "akit chatservicer-button component",
   "main": [
     "dist/css/akit.component.chatservicer-button.css",
