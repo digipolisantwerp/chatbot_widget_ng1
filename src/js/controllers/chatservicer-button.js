@@ -63,7 +63,7 @@
                     var windowName = 'chatservicer_window';
                     var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
 
-                    var windowUrl = $scope.urlWhenUnavailable || "https://www.google.com";
+                    var windowUrl = $scope.urlWhenUnavailable || "";
                     if (!available) {
                         window.open(windowUrl, windowName, windowFeatures);
                         return;
