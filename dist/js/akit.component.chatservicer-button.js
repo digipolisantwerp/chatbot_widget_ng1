@@ -30,6 +30,72 @@
 
     ng
         .module('akit.component.chatservicerButton')
+        .directive('chatservicerButton', [
+            '$timeout',
+            '$window',
+            function (
+                $timeout,
+                $window
+            ) {
+
+                return {
+                    restrict: 'AE',
+                    replace: true,
+                    templateUrl: '/assets/chatservicer-button/views/directives/chatservicer-button.htm',
+                    controller: 'akit.component.chatservicerButton.chatservicerButtonController',
+                    controllerAs: 'chatservicer',
+                    scope: {
+                        entitykey: '@',
+                        urlWhenUnavailable: '@',
+                        availabilityServiceUrl: '@',
+                        buttonText: '@',
+                        buttonTextNoAgent: '@',
+                        getLinkServiceUrl: '@'
+                    },
+                    link: function (scope, element, attrs, ctrl) {
+
+                        function initialize() {
+                            ctrl.getChatAvailability();
+                        }
+
+                        scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
+                            if (newValue !== oldValue && !ctrl.disabled) {
+                                if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
+                                    ctrl.nextPoll(2000);
+                                }
+                            }
+                        });
+
+                        scope.$on('$destroy', function () {
+                            if (!ctrl.chatWindow.closed) {
+                                ctrl.chatWindow.close();
+                            }
+                            ctrl.cancelPoll();
+                        });
+
+                        $window.addEventListener('focus', function () {
+                            $timeout(function () {
+                                if (ctrl.chatWindow.closed) {
+                                    ctrl.disabled = false;
+                                    ctrl.nextPoll();
+                                }
+                            });
+                        });
+
+                        initialize();
+                    }
+                };
+
+            }
+        ]);
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
         .controller('akit.component.chatservicerButton.chatservicerButtonController', [
             '$scope',
             '$timeout',
@@ -110,8 +176,15 @@
                                 cancelPoll();
 
                                 var windowURL = chatUrlAvailable;
+                                var referrer = 'referrer=' + window.location.href;
 
-                                vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                                if (chatUrlAvailable.indexOf('?') >= -1) {
+                                    referrer = '&' + referrer;
+                                } else {
+                                    referrer = '?' + referrer;
+                                }
+
+                                vm.chatWindow = window.open(windowURL + referrer, windowName, windowFeatures);
                                 vm.disabled = true;
                             } else {
                                 vm.occupied = true;
@@ -127,72 +200,6 @@
                 vm.nextPoll = nextPoll;
                 vm.cancelPoll = cancelPoll;
                 vm.getChatAvailability = getChatAvailability;
-            }
-        ]);
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
-        .directive('chatservicerButton', [
-            '$timeout',
-            '$window',
-            function (
-                $timeout,
-                $window
-            ) {
-
-                return {
-                    restrict: 'AE',
-                    replace: true,
-                    templateUrl: '/assets/chatservicer-button/views/directives/chatservicer-button.htm',
-                    controller: 'akit.component.chatservicerButton.chatservicerButtonController',
-                    controllerAs: 'chatservicer',
-                    scope: {
-                        entitykey: '@',
-                        urlWhenUnavailable: '@',
-                        availabilityServiceUrl: '@',
-                        buttonText: '@',
-                        buttonTextNoAgent: '@',
-                        getLinkServiceUrl: '@'
-                    },
-                    link: function (scope, element, attrs, ctrl) {
-
-                        function initialize() {
-                            ctrl.getChatAvailability();
-                        }
-
-                        scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
-                            if (newValue !== oldValue && !ctrl.disabled) {
-                                if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
-                                    ctrl.nextPoll(2000);
-                                }
-                            }
-                        });
-
-                        scope.$on('$destroy', function () {
-                            if (!ctrl.chatWindow.closed) {
-                                ctrl.chatWindow.close();
-                            }
-                            ctrl.cancelPoll();
-                        });
-
-                        $window.addEventListener('focus', function () {
-                            $timeout(function () {
-                                if (ctrl.chatWindow.closed) {
-                                    ctrl.disabled = false;
-                                    ctrl.nextPoll();
-                                }
-                            });
-                        });
-
-                        initialize();
-                    }
-                };
-
             }
         ]);
 
