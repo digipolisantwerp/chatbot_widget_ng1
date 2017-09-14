@@ -14,7 +14,7 @@
             ) {
                 var vm = this;
 
-                var pollTime = 1000;
+                var pollTime = 2000;
                 var errorCount = 0;
                 var pollPromise;
 
