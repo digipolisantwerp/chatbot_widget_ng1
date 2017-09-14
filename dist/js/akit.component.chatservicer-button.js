@@ -19,6 +19,17 @@
 
     ng
         .module('akit.component.chatservicerButton')
+        .constant('akit.component.chatservicerButton.chatproxyConfig', {
+            chatproxyServiceUrl: '/srv/chatservicer/d'
+        });
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
         .controller('akit.component.chatservicerButton.chatservicerButtonController', [
             '$scope',
             '$timeout',
@@ -30,7 +41,7 @@
             ) {
                 var vm = this;
 
-                var pollTime = 1000;
+                var pollTime = 2000;
                 var errorCount = 0;
                 var pollPromise;
 
@@ -132,69 +143,6 @@
 
     ng
         .module('akit.component.chatservicerButton')
-        .constant('akit.component.chatservicerButton.chatproxyConfig', {
-            chatproxyServiceUrl: '/srv/chatservicer/d'
-        });
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
-        .service('akit.component.chatservicerButto.chatproxyService', [
-            '$http',
-            '$interval',
-            '$q',
-            'akit.component.chatservicerButton.chatproxyConfig',
-            function ($http, $interval, $q, chatproxyConfig) {
-
-                var API = {};
-
-                var delay = 10;
-                var availabilityData = {
-                    "success": true,
-                    "data": {
-                        "available": true
-                    }
-                };
-
-                $interval(function () {
-                    var newData = !availabilityData.data.available;
-                    availabilityData.data.available = newData;
-                }, 1000 * delay);
-
-                function getAvailability(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
-                        overrideErrorHandling: true
-                    });
-                }
-
-                function getChatURL(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey, {
-                        overrideErrorHandling: true
-                    })
-                    .then(function (response) {
-                        return response.data;
-                    });
-                }
-
-                API.getAvailability = getAvailability;
-                API.getChatURL = getChatURL;
-
-                return API;
-
-            }
-        ]);
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
         .directive('chatservicerButton', [
             '$timeout',
             '$window',
@@ -250,6 +198,48 @@
                         initialize();
                     }
                 };
+
+            }
+        ]);
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
+        .service('akit.component.chatservicerButto.chatproxyService', [
+            '$http',
+            '$interval',
+            '$q',
+            'akit.component.chatservicerButton.chatproxyConfig',
+            function ($http, $interval, $q, chatproxyConfig) {
+
+                var API = {};
+
+                function getAvailability(entitykey) {
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
+                        overrideErrorHandling: true
+                    })
+                    .then(function (response) {
+                        return response.data;
+                    });
+                }
+
+                function getChatURL(entitykey) {
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey, {
+                        overrideErrorHandling: true
+                    })
+                    .then(function (response) {
+                        return response.data;
+                    });
+                }
+
+                API.getAvailability = getAvailability;
+                API.getChatURL = getChatURL;
+
+                return API;
 
             }
         ]);
