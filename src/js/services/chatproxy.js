@@ -28,39 +28,14 @@
                 }, 1000 * delay);
 
                 function getAvailability(entitykey) {
-                    // Call (return promise instead of data object)
-                    // return $http.get(chatproxyConfig.chatproxyServiceUrl + 'availability?entitykey=' + entitykey);
-
-                    function promise(data) {
-                        var deferred = $q.defer();
-
-                        if (data.success) {
-                            deferred.resolve(data);
-                        } else {
-                            deferred.reject(data);
-                        }
-
-                        return deferred.promise;
-                    }
-
-                    // Return dummy promise
-                    return promise(availabilityData);
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/availability?entitykey=' + entitykey);
                 }
 
                 function getChatURL(entitykey) {
-                    // Call
-                    // return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey)
-                    //     .then(function (response) {
-                    //         return response.data;
-                    //     });
-
-                    // Response example
-                    return {
-                        "success": true,
-                        "data": {
-                            "url": "https://talk.attendedbyhumans.com/tbv1/call_chat_design.php?agent=santwerp"
-                        }
-                    };
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey)
+                        .then(function (response) {
+                            return response.data;
+                        });
                 }
 
                 API.getAvailability = getAvailability;
