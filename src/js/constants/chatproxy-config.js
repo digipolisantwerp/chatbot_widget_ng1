@@ -4,7 +4,7 @@
     ng
         .module('akit.component.chatservicerButton')
         .constant('akit.component.chatservicerButton.chatproxyConfig', {
-            chatproxyServiceUrl: '/srv/chatproxy/d/'
+            chatproxyServiceUrl: '/srv/chatservicer/d/'
         });
 
 })(window.angular);
