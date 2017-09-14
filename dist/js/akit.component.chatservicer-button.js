@@ -30,119 +30,6 @@
 
     ng
         .module('akit.component.chatservicerButton')
-        .controller('akit.component.chatservicerButton.chatservicerButtonController', [
-            '$scope',
-            '$timeout',
-            'akit.component.chatservicerButto.chatproxyService',
-            function (
-                $scope,
-                $timeout,
-                chatproxyService
-            ) {
-                var vm = this;
-
-                var pollTime = 1000;
-                var errorCount = 0;
-                var pollPromise;
-
-                vm.chatWindow = {
-                    closed: true
-                };
-                vm.available;
-                vm.disabled = false;
-                vm.occupied = false;
-                vm.popupOpen = false;
-
-                function getChatAvailability() {
-                    chatproxyService.getAvailability($scope.entitykey)
-                        .then(function (response) {
-                            vm.available = response.data.available;
-
-                            errorCount = 0;
-                            nextPoll();
-                        })
-                        .catch(function (response) {
-                            vm.available = false;
-
-                            errorCount += 1;
-                            nextPoll(errorCount * 2 * pollTime);
-                        });
-                }
-
-                function nextPoll(delay) {
-                    delay = delay || pollTime;
-
-                    cancelPoll();
-                    pollPromise = $timeout(getChatAvailability, delay);
-                }
-
-                function cancelPoll() {
-                    $timeout.cancel(pollPromise);
-                }
-
-                function getChatURL() {
-                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
-                    return chatURL.data.url;
-                }
-
-                function clickHandler(available) {
-                    var windowName = 'chatservicer_window';
-                    var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
-
-                    var windowUrl = $scope.urlWhenUnavailable || "https://www.google.com";
-                    if (!available) {
-                        window.open(windowUrl, windowName, windowFeatures);
-                        return;
-                    }
-
-                    var chatUrlAvailable = getChatURL();
-
-                    if (!vm.chatWindow.closed) {
-                        vm.chatWindow.focus();
-                        return;
-                    } else {
-                        vm.disabled = false;
-                    }
-
-                    if (vm.available) {
-                        if (chatUrlAvailable) {
-                            cancelPoll();
-
-                            var windowURL = chatUrlAvailable;
-
-                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
-                            vm.disabled = true;
-                        } else {
-                            vm.occupied = true;
-                            vm.popupOpen = !vm.popupOpen;
-                            vm.available = false;
-
-                            nextPoll(5000);
-                        }
-                    } else {
-                        if (vm.popupOpen && vm.occupied) {
-                            vm.popupOpen = false;
-                        } else {
-                            vm.occupied = false;
-                            vm.popupOpen = !vm.popupOpen;
-                        }
-                    }
-                }
-
-                vm.clickHandler = clickHandler;
-                vm.nextPoll = nextPoll;
-                vm.cancelPoll = cancelPoll;
-                vm.getChatAvailability = getChatAvailability;
-            }
-        ]);
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
         .directive('chatservicerButton', [
             '$timeout',
             '$window',
@@ -209,6 +96,119 @@
 
     ng
         .module('akit.component.chatservicerButton')
+        .controller('akit.component.chatservicerButton.chatservicerButtonController', [
+            '$scope',
+            '$timeout',
+            'akit.component.chatservicerButto.chatproxyService',
+            function (
+                $scope,
+                $timeout,
+                chatproxyService
+            ) {
+                var vm = this;
+
+                var pollTime = 1000;
+                var errorCount = 0;
+                var pollPromise;
+
+                vm.chatWindow = {
+                    closed: true
+                };
+                vm.available;
+                vm.disabled = false;
+                vm.occupied = false;
+                vm.popupOpen = false;
+
+                function getChatAvailability() {
+                    chatproxyService.getAvailability($scope.entitykey)
+                        .then(function (response) {
+                            vm.available = response.data.available;
+
+                            errorCount = 0;
+                            nextPoll();
+                        })
+                        .catch(function (response) {
+                            vm.available = false;
+
+                            errorCount += 1;
+                            nextPoll(errorCount * 2 * pollTime);
+                        });
+                }
+
+                function nextPoll(delay) {
+                    delay = delay || pollTime;
+
+                    cancelPoll();
+                    pollPromise = $timeout(getChatAvailability, delay);
+                }
+
+                function cancelPoll() {
+                    $timeout.cancel(pollPromise);
+                }
+
+                function getChatURL() {
+                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
+                    return chatURL.data.url;
+                }
+
+                function clickHandler(available) {
+                    var windowName = 'chatservicer_window';
+                    var windowFeatures = 'width=640,height=480,resizable,scrollbars=yes,status=1';
+
+                    var windowUrl = $scope.urlWhenUnavailable || "";
+                    if (!available) {
+                        window.open(windowUrl, windowName, windowFeatures);
+                        return;
+                    }
+
+                    var chatUrlAvailable = getChatURL();
+
+                    if (!vm.chatWindow.closed) {
+                        vm.chatWindow.focus();
+                        return;
+                    } else {
+                        vm.disabled = false;
+                    }
+
+                    if (vm.available) {
+                        if (chatUrlAvailable) {
+                            cancelPoll();
+
+                            var windowURL = chatUrlAvailable;
+
+                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                            vm.disabled = true;
+                        } else {
+                            vm.occupied = true;
+                            vm.popupOpen = !vm.popupOpen;
+                            vm.available = false;
+
+                            nextPoll(5000);
+                        }
+                    } else {
+                        if (vm.popupOpen && vm.occupied) {
+                            vm.popupOpen = false;
+                        } else {
+                            vm.occupied = false;
+                            vm.popupOpen = !vm.popupOpen;
+                        }
+                    }
+                }
+
+                vm.clickHandler = clickHandler;
+                vm.nextPoll = nextPoll;
+                vm.cancelPoll = cancelPoll;
+                vm.getChatAvailability = getChatAvailability;
+            }
+        ]);
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
         .service('akit.component.chatservicerButto.chatproxyService', [
             '$http',
             '$interval',
@@ -232,30 +232,14 @@
                 }, 1000 * delay);
 
                 function getAvailability(entitykey) {
-
-                    function promise(data) {
-                        var deferred = $q.defer();
-
-                        if (data.success) {
-                            deferred.resolve(data);
-                        } else {
-                            deferred.reject(data);
-                        }
-
-                        return deferred.promise;
-                    }
-
-                    return promise(availabilityData);
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/availability?entitykey=' + entitykey);
                 }
 
                 function getChatURL(entitykey) {
-
-                    return {
-                        "success": true,
-                        "data": {
-                            "url": "https://talk.attendedbyhumans.com/tbv1/call_chat_design.php?agent=santwerp"
-                        }
-                    };
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey)
+                        .then(function (response) {
+                            return response.data;
+                        });
                 }
 
                 API.getAvailability = getAvailability;
