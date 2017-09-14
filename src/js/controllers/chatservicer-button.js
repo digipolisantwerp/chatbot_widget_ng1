@@ -88,8 +88,15 @@
                                 cancelPoll();
 
                                 var windowURL = chatUrlAvailable;
+                                var referrer = 'referrer=' + window.location.href;
 
-                                vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                                if (chatUrlAvailable.indexOf('?') >= -1) {
+                                    referrer = '&' + referrer;
+                                } else {
+                                    referrer = '?' + referrer;
+                                }
+
+                                vm.chatWindow = window.open(windowURL + referrer, windowName, windowFeatures);
                                 vm.disabled = true;
                             } else {
                                 // Chat agents are all occupied => show popup with message + set chat availability to false
