@@ -28,14 +28,18 @@
                 }, 1000 * delay);
 
                 function getAvailability(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/availability?entitykey=' + entitykey);
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
+                        overrideErrorHandling: true
+                    });
                 }
 
                 function getChatURL(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey)
-                        .then(function (response) {
-                            return response.data;
-                        });
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey, {
+                        overrideErrorHandling: true
+                    })
+                    .then(function (response) {
+                        return response.data;
+                    });
                 }
 
                 API.getAvailability = getAvailability;

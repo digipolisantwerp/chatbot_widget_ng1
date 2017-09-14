@@ -65,7 +65,8 @@
 
                     var windowUrl = $scope.urlWhenUnavailable || "";
                     if (!available) {
-                        window.open(windowUrl, windowName, windowFeatures);
+                        window.open(windowUrl, "_blank");
+                        // window.open(windowUrl, windowName, windowFeatures);
                         return;
                     }
 
