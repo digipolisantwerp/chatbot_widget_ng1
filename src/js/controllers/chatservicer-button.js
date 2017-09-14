@@ -55,8 +55,8 @@
                 }
 
                 function getChatURL() {
-                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
-                    return chatURL.data.url;
+                    return chatproxyService
+                        .getChatURL($scope.entitykey);
                 }
 
                 function clickHandler(available) {
@@ -66,11 +66,8 @@
                     var windowUrl = $scope.urlWhenUnavailable || "";
                     if (!available) {
                         window.open(windowUrl, "_blank");
-                        // window.open(windowUrl, windowName, windowFeatures);
                         return;
                     }
-
-                    var chatUrlAvailable = getChatURL();
 
                     // Check if a chat window is already open
                     if (!vm.chatWindow.closed) {
@@ -81,36 +78,29 @@
                         vm.disabled = false;
                     }
 
-                    if (vm.available) {
-                        // Chat is available
-                        if (chatUrlAvailable) {
-                            // Chat agent is also available => Stop polling + open window with chat url
-                            cancelPoll();
+                    getChatURL()
+                        .then(function (result) {
+                            var chatUrlAvailable = result.data.url;
 
-                            var windowURL = chatUrlAvailable;
+                            // Chat is available
+                            if (chatUrlAvailable) {
+                                // Chat agent is also available => Stop polling + open window with chat url
+                                cancelPoll();
 
-                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
-                            vm.disabled = true;
-                        } else {
-                            // Chat agents are all occupied => show popup with message + set chat availability to false
-                            vm.occupied = true;
-                            vm.popupOpen = !vm.popupOpen;
-                            vm.available = false;
+                                var windowURL = chatUrlAvailable;
 
-                            // Restart polling after 5 seconds to avoid closing of popup when availability changes
-                            nextPoll(5000);
-                        }
-                    } else {
-                        // Chat is unavailable
-                        if (vm.popupOpen && vm.occupied) {
-                            // Close popup if it was open when occupied
-                            vm.popupOpen = false;
-                        } else {
-                            // Toggle popup with standard info
-                            vm.occupied = false;
-                            vm.popupOpen = !vm.popupOpen;
-                        }
-                    }
+                                vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                                vm.disabled = true;
+                            } else {
+                                // Chat agents are all occupied => show popup with message + set chat availability to false
+                                vm.occupied = true;
+                                vm.popupOpen = !vm.popupOpen;
+                                vm.available = false;
+
+                                // Restart polling after 5 seconds to avoid closing of popup when availability changes
+                                nextPoll(5000);
+                            }
+                        });
                 }
 
                 vm.clickHandler = clickHandler;

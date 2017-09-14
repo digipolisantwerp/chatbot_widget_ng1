@@ -81,8 +81,8 @@
                 }
 
                 function getChatURL() {
-                    var chatURL = chatproxyService.getChatURL($scope.entitykey);
-                    return chatURL.data.url;
+                    return chatproxyService
+                        .getChatURL($scope.entitykey);
                 }
 
                 function clickHandler(available) {
@@ -95,8 +95,6 @@
                         return;
                     }
 
-                    var chatUrlAvailable = getChatURL();
-
                     if (!vm.chatWindow.closed) {
                         vm.chatWindow.focus();
                         return;
@@ -104,77 +102,31 @@
                         vm.disabled = false;
                     }
 
-                    if (vm.available) {
-                        if (chatUrlAvailable) {
-                            cancelPoll();
+                    getChatURL()
+                        .then(function (result) {
+                            var chatUrlAvailable = result.data.url;
 
-                            var windowURL = chatUrlAvailable;
+                            if (chatUrlAvailable) {
+                                cancelPoll();
 
-                            vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
-                            vm.disabled = true;
-                        } else {
-                            vm.occupied = true;
-                            vm.popupOpen = !vm.popupOpen;
-                            vm.available = false;
+                                var windowURL = chatUrlAvailable;
 
-                            nextPoll(5000);
-                        }
-                    } else {
-                        if (vm.popupOpen && vm.occupied) {
-                            vm.popupOpen = false;
-                        } else {
-                            vm.occupied = false;
-                            vm.popupOpen = !vm.popupOpen;
-                        }
-                    }
+                                vm.chatWindow = window.open(windowURL, windowName, windowFeatures);
+                                vm.disabled = true;
+                            } else {
+                                vm.occupied = true;
+                                vm.popupOpen = !vm.popupOpen;
+                                vm.available = false;
+
+                                nextPoll(5000);
+                            }
+                        });
                 }
 
                 vm.clickHandler = clickHandler;
                 vm.nextPoll = nextPoll;
                 vm.cancelPoll = cancelPoll;
                 vm.getChatAvailability = getChatAvailability;
-            }
-        ]);
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
-        .service('akit.component.chatservicerButto.chatproxyService', [
-            '$http',
-            '$interval',
-            '$q',
-            'akit.component.chatservicerButton.chatproxyConfig',
-            function ($http, $interval, $q, chatproxyConfig) {
-
-                var API = {};
-
-                function getAvailability(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
-                        overrideErrorHandling: true
-                    })
-                    .then(function (response) {
-                        return response.data;
-                    });
-                }
-
-                function getChatURL(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey, {
-                        overrideErrorHandling: true
-                    })
-                    .then(function (response) {
-                        return response.data;
-                    });
-                }
-
-                API.getAvailability = getAvailability;
-                API.getChatURL = getChatURL;
-
-                return API;
-
             }
         ]);
 
@@ -240,6 +192,48 @@
                         initialize();
                     }
                 };
+
+            }
+        ]);
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
+        .service('akit.component.chatservicerButto.chatproxyService', [
+            '$http',
+            '$interval',
+            '$q',
+            'akit.component.chatservicerButton.chatproxyConfig',
+            function ($http, $interval, $q, chatproxyConfig) {
+
+                var API = {};
+
+                function getAvailability(entitykey) {
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
+                        overrideErrorHandling: true
+                    })
+                    .then(function (response) {
+                        return response.data;
+                    });
+                }
+
+                function getChatURL(entitykey) {
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey, {
+                        overrideErrorHandling: true
+                    })
+                    .then(function (response) {
+                        return response.data;
+                    });
+                }
+
+                API.getAvailability = getAvailability;
+                API.getChatURL = getChatURL;
+
+                return API;
 
             }
         ]);
