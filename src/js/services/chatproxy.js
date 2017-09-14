@@ -22,7 +22,7 @@
                 }
 
                 function getChatURL(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + 'chaturl?entitykey=' + entitykey, {
+                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey, {
                         overrideErrorHandling: true
                     })
                     .then(function (response) {
