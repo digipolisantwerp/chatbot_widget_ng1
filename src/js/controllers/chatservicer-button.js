@@ -70,7 +70,7 @@
                     }
 
                     // Check if a chat window is already open
-                    if (!vm.chatWindow.closed) {
+                    if (vm.chatWindow && !vm.chatWindow.closed) {
                         // if so focus back on the window and end here
                         vm.chatWindow.focus();
                         return;

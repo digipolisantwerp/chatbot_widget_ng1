@@ -40,10 +40,6 @@
                         });
 
                         scope.$on('$destroy', function () {
-                            // Close chat window and cancel polling if scope is destroyed
-                            if (!ctrl.chatWindow.closed) {
-                                ctrl.chatWindow.close();
-                            }
                             ctrl.cancelPoll();
                         });
 
@@ -51,7 +47,7 @@
                             // Had to wrap in timeout because chatwindow.closed wasn't
                             // being set directly to false when it was closed in Firefox
                             $timeout(function () {
-                                if (ctrl.chatWindow.closed) {
+                                if (ctrl.chatWindow && ctrl.chatWindow.closed) {
                                     ctrl.disabled = false;
                                     ctrl.nextPoll();
                                 }
