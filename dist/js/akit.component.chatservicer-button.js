@@ -30,72 +30,6 @@
 
     ng
         .module('akit.component.chatservicerButton')
-        .directive('chatservicerButton', [
-            '$timeout',
-            '$window',
-            function (
-                $timeout,
-                $window
-            ) {
-
-                return {
-                    restrict: 'AE',
-                    replace: true,
-                    templateUrl: '/assets/chatservicer-button/views/directives/chatservicer-button.htm',
-                    controller: 'akit.component.chatservicerButton.chatservicerButtonController',
-                    controllerAs: 'chatservicer',
-                    scope: {
-                        entitykey: '@',
-                        urlWhenUnavailable: '@',
-                        availabilityServiceUrl: '@',
-                        buttonText: '@',
-                        buttonTextNoAgent: '@',
-                        getLinkServiceUrl: '@'
-                    },
-                    link: function (scope, element, attrs, ctrl) {
-
-                        function initialize() {
-                            ctrl.getChatAvailability();
-                        }
-
-                        scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
-                            if (newValue !== oldValue && !ctrl.disabled) {
-                                if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
-                                    ctrl.nextPoll(2000);
-                                }
-                            }
-                        });
-
-                        scope.$on('$destroy', function () {
-                            if (!ctrl.chatWindow.closed) {
-                                ctrl.chatWindow.close();
-                            }
-                            ctrl.cancelPoll();
-                        });
-
-                        $window.addEventListener('focus', function () {
-                            $timeout(function () {
-                                if (ctrl.chatWindow.closed) {
-                                    ctrl.disabled = false;
-                                    ctrl.nextPoll();
-                                }
-                            });
-                        });
-
-                        initialize();
-                    }
-                };
-
-            }
-        ]);
-
-})(window.angular);
-
-(function (ng) {
-    'use strict';
-
-    ng
-        .module('akit.component.chatservicerButton')
         .controller('akit.component.chatservicerButton.chatservicerButtonController', [
             '$scope',
             '$timeout',
@@ -210,6 +144,72 @@
 
     ng
         .module('akit.component.chatservicerButton')
+        .directive('chatservicerButton', [
+            '$timeout',
+            '$window',
+            function (
+                $timeout,
+                $window
+            ) {
+
+                return {
+                    restrict: 'AE',
+                    replace: true,
+                    templateUrl: '/assets/chatservicer-button/views/directives/chatservicer-button.htm',
+                    controller: 'akit.component.chatservicerButton.chatservicerButtonController',
+                    controllerAs: 'chatservicer',
+                    scope: {
+                        entitykey: '@',
+                        urlWhenUnavailable: '@',
+                        availabilityServiceUrl: '@',
+                        buttonText: '@',
+                        buttonTextNoAgent: '@',
+                        getLinkServiceUrl: '@'
+                    },
+                    link: function (scope, element, attrs, ctrl) {
+
+                        function initialize() {
+                            ctrl.getChatAvailability();
+                        }
+
+                        scope.$watch('chatservicer.available', function onAvailabiltyChange(newValue, oldValue) {
+                            if (newValue !== oldValue && !ctrl.disabled) {
+                                if (!ctrl.occupied || (ctrl.occupied && newValue === true)) {
+                                    ctrl.nextPoll(2000);
+                                }
+                            }
+                        });
+
+                        scope.$on('$destroy', function () {
+                            if (!ctrl.chatWindow.closed) {
+                                ctrl.chatWindow.close();
+                            }
+                            ctrl.cancelPoll();
+                        });
+
+                        $window.addEventListener('focus', function () {
+                            $timeout(function () {
+                                if (ctrl.chatWindow.closed) {
+                                    ctrl.disabled = false;
+                                    ctrl.nextPoll();
+                                }
+                            });
+                        });
+
+                        initialize();
+                    }
+                };
+
+            }
+        ]);
+
+})(window.angular);
+
+(function (ng) {
+    'use strict';
+
+    ng
+        .module('akit.component.chatservicerButton')
         .service('akit.component.chatservicerButto.chatproxyService', [
             '$http',
             '$interval',
@@ -220,7 +220,11 @@
                 var API = {};
 
                 function getAvailability(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
+                    var chatAvailabilityUrl = chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey;
+
+                    chatAvailabilityUrl += "&kofefe=" + Date.now().toString();
+
+                    return $http.get(chatAvailabilityUrl, {
                         overrideErrorHandling: true
                     })
                     .then(function (response) {
@@ -229,7 +233,11 @@
                 }
 
                 function getChatURL(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey, {
+                    var chatButtonUrl = chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey;
+
+                    chatButtonUrl += "&kofefe=" + Date.now().toString();
+
+                    return $http.get(chatButtonUrl, {
                         overrideErrorHandling: true
                     })
                     .then(function (response) {
