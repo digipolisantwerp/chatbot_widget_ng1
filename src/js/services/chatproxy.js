@@ -13,7 +13,12 @@
                 var API = {};
 
                 function getAvailability(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey, {
+                    var chatAvailabilityUrl = chatproxyConfig.chatproxyServiceUrl + "/availability?entitykey=" + entitykey;
+
+                    // attempting to fix the caching troubles in IE...
+                    chatAvailabilityUrl += "&kofefe=" + Date.now().toString();
+
+                    return $http.get(chatAvailabilityUrl, {
                         overrideErrorHandling: true
                     })
                     .then(function (response) {
@@ -22,7 +27,12 @@
                 }
 
                 function getChatURL(entitykey) {
-                    return $http.get(chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey, {
+                    var chatButtonUrl = chatproxyConfig.chatproxyServiceUrl + '/chaturl?entitykey=' + entitykey;
+
+                    // attempting to fix the caching troubles in IE...
+                    chatButtonUrl += "&kofefe=" + Date.now().toString();
+
+                    return $http.get(chatButtonUrl, {
                         overrideErrorHandling: true
                     })
                     .then(function (response) {
