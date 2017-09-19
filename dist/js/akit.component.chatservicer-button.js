@@ -95,7 +95,7 @@
                         return;
                     }
 
-                    if (!vm.chatWindow.closed) {
+                    if (vm.chatWindow && !vm.chatWindow.closed) {
                         vm.chatWindow.focus();
                         return;
                     } else {
@@ -181,15 +181,12 @@
                         });
 
                         scope.$on('$destroy', function () {
-                            if (!ctrl.chatWindow.closed) {
-                                ctrl.chatWindow.close();
-                            }
                             ctrl.cancelPoll();
                         });
 
                         $window.addEventListener('focus', function () {
                             $timeout(function () {
-                                if (ctrl.chatWindow.closed) {
+                                if (ctrl.chatWindow && ctrl.chatWindow.closed) {
                                     ctrl.disabled = false;
                                     ctrl.nextPoll();
                                 }
