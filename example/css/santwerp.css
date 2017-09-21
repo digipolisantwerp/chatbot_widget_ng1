@@ -274,7 +274,10 @@ body:before {
     color: #0064B4 !important;
 }
 
-.message_video, .chat_line_text_p2p {
+.message_video,
+.chat_line_text_p2p,
+.chat_line_text_muc,
+.chat_line_text_cobrowsing {
     position: relative;
 
     padding: 4px 4px 4px 24px !important;
@@ -285,7 +288,10 @@ body:before {
     transition: background 250ms ease-out;
 }
 
-.message_video:before, .chat_line_text_p2p:before {
+.message_video:before,
+.chat_line_text_p2p:before,
+.chat_line_text_muc:before,
+.chat_line_text_cobrowsing:before {
     position: absolute;
     left: 4px;
 
@@ -299,7 +305,10 @@ body:before {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.message_video:hover, .chat_line_text_p2p:hover {
+.message_video:hover,
+.chat_line_text_p2p:hover,
+.chat_line_text_muc:hover,
+.chat_line_text_cobrowsing:hover {
     background: #326F1E !important;
 }
 
