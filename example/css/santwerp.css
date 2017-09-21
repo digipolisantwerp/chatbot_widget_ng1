@@ -157,6 +157,7 @@ body:before {
 }
 
 #plugin_install {
+    display: none !important;
     padding: 0;
 }
 
@@ -273,7 +274,7 @@ body:before {
     color: #0064B4 !important;
 }
 
-.message_video {
+.message_video, .chat_line_text_p2p {
     position: relative;
 
     padding: 4px 4px 4px 24px !important;
@@ -284,7 +285,7 @@ body:before {
     transition: background 250ms ease-out;
 }
 
-.message_video:before {
+.message_video:before, .chat_line_text_p2p:before {
     position: absolute;
     left: 4px;
 
@@ -298,7 +299,7 @@ body:before {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.message_video:hover {
+.message_video:hover, .chat_line_text_p2p:hover {
     background: #326F1E !important;
 }
 
@@ -494,6 +495,13 @@ body:before {
     background: #678CA3;
 }
 
+/* fileupload: statusbar */
+
+.chat_contents_download.statusbar .filename,
+.chat_contents_download.statusbar .filesize {
+    display: inline;
+    float: none
+}
 
 /* Messages: chat status indicator */
 
