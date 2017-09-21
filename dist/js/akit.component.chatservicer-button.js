@@ -222,7 +222,8 @@
                     chatAvailabilityUrl += "&kofefe=" + Date.now().toString();
 
                     return $http.get(chatAvailabilityUrl, {
-                        overrideErrorHandling: true
+                        overrideErrorHandling: true,
+                        ignoreLoadingBar: true
                     })
                     .then(function (response) {
                         return response.data;
