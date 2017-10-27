@@ -56,8 +56,13 @@
                 function getChatAvailability() {
                     chatproxyService.getAvailability($scope.entitykey)
                         .then(function (response) {
-                            vm.available = response.data.available;
+                            if (!response && !response.data) {
+                                errorCount += 1;
+                                nextPoll(errorCount * 2 * pollTime);
+                                return;
+                            }
 
+                            vm.available = response.data.available;
                             errorCount = 0;
                             nextPoll();
                         })
@@ -226,7 +231,7 @@
                         ignoreLoadingBar: true
                     })
                     .then(function (response) {
-                        return response.data;
+                        return response.data || {};
                     });
                 }
 
