@@ -21,7 +21,12 @@ We keep all CSS in this folder, in the `santwerp.css` file. This content needs t
 
 ## Teleportel documentation
 
-the [Teleportel documentation site](https://www.teleportel.com/doc/index.html) shows us specific documentation regarding the [CSS injection](https://www.teleportel.com/doc/injectcss.html). It does explain where to replace the css for both the visitor and the agent (this last one was not available at the time of the original implementation but seems to be available now).
+the [Teleportel documentation site]
+
+username: teleportel
+password: yesido
+
+(https://www.teleportel.com/doc/index.html) shows us specific documentation regarding the [CSS injection](https://www.teleportel.com/doc/injectcss.html). It does explain where to replace the css for both the visitor and the agent (this last one was not available at the time of the original implementation but seems to be available now).
 
 ## remarks
 
