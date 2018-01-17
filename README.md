@@ -29,3 +29,6 @@ Use `gulp` to have a watcher running for code changes.
 `gulp bump:patch` for patch build increase and tag on the current branch.
 
 Use `gulp serve` to selfhost the app. Navigate to `./example/index.html' to view the app.
+
+## CSS Injection
+see [/teleportel-css-injection/readme.md](https://bitbucket.antwerpen.be/projects/AKIT/repos/chatservicer-button_component_angular/browse/teleportel-css-injection)
