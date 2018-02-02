@@ -22,7 +22,7 @@
     "babel-register": "^6.23.0",
     "del": "^2.2.2",
     "eslint": "^3.16.0",
-    "eslint-config-digipolis-fe-js": "^1.1.0",
+    "eslint-config-digipolis-fe-js": "^2.0.2",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
     "run-sequence": "^1.2.2",
