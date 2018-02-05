@@ -15,20 +15,22 @@
   "devDependencies": {
     "astad-gulp-setup": "^3.3.3",
     "babel": "^6.23.0",
-    "babel-core": "^6.23.1",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.22.0",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-node6": "^11.0.0",
-    "babel-register": "^6.23.0",
-    "del": "^2.2.2",
-    "eslint": "^3.16.0",
-    "eslint-config-digipolis-fe-js": "^2.0.2",
+    "babel-register": "^6.26.0",
+    "del": "^3.0.0",
+    "eslint": "^4.17.0",
+    "eslint-config-digipolis-fe-js": "^2.0.3",
     "gulp": "^3.9.1",
-    "gulp-connect": "^5.0.0",
-    "run-sequence": "^1.2.2",
+    "gulp-connect": "^5.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sass-lint": "^1.3.4",
+    "run-sequence": "^2.2.1",
     "wiredep": "^4.0.0"
   },
   "dependencies": {
-    "bower": "^1.8.0"
+    "bower": "^1.8.2"
   }
 }

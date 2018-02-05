@@ -11,7 +11,8 @@ An example chat window can be found [here](https://talk.attendedbyhumans.com/tbv
 
 The method to change something in the CSS is rather old fashioned, where they provide a window with a textarea in which you can paste your CSS.
 
-We keep all CSS in this folder, in the `santwerp.css` file. This content needs to be pasted in the window they provide:
+We keep all CSS in this folder, in the `santwerp.agent.css` and `santwerp.client.css` file. This content needs to be pasted in the window they provide:
+DO NOT ALTER THESE FILES, use the SCSS files to make changes.
 
 1. visit this [page](https://talk.attendedbyhumans.com/tbv1/custom/?agent=santwerp)
 1. paste the content of `santwerp.css` in the textbox

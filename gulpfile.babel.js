@@ -7,6 +7,7 @@ import path from 'path';
 import runSequence from 'run-sequence';
 import connect from 'gulp-connect';
 const wiredep = require('wiredep').stream;
+import sass from 'gulp-sass';
 
 const paths = {
     dist: 'dist',
@@ -129,4 +130,24 @@ gulp.task('wire', function wire() {
     gulp.src('./example/index.html')
         .pipe(wiredep())
         .pipe(gulp.dest('./example'));
+});
+
+gulp.task('teleportel-build-client', function(){
+    return gulp.src('./teleportel-css-injection/scss/santwerp.client.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('./teleportel-css-injection'));
+});
+
+gulp.task('teleportel-build-agent', function(){
+    return gulp.src('./teleportel-css-injection/scss/santwerp.agent.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('./teleportel-css-injection'));
+});
+
+gulp.task('teleportel-build', function(done){
+    return runSequence(
+        'teleportel-build-client',
+        'teleportel-build-agent',
+        done
+    );
 });
