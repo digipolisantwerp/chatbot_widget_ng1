@@ -1,0 +1,330 @@
+
+/*
+Messages wrapper
+-------
+*/
+
+.white-back-bg {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 0 !important;
+    border-radius: 0;
+    background: transparent;
+}
+
+/* Messages: chatbox */
+
+.messages {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    height: 100%;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+/* Messages: chatbubble */
+
+.message {
+    padding-bottom: 4px;
+}
+
+.message i {
+    font-style: normal;
+    font-weight: 700;
+    color: #0064B4 !important;
+}
+
+.message_video,
+.chat_line_text_p2p,
+.chat_line_text_muc,
+.chat_line_text_cobrowsing {
+    position: relative;
+    padding: 4px 4px 4px 24px !important;
+    background: #4AA32C !important;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+}
+
+.message_video:before,
+.chat_line_text_p2p:before,
+.chat_line_text_muc:before,
+.chat_line_text_cobrowsing:before {
+    position: absolute;
+    left: 4px;
+    content: "\f03d";
+    /* FA video icon */
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 14px;
+    letter-spacing: normal;
+    line-height: 1.25rem;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.message_video:hover,
+.chat_line_text_p2p:hover,
+.chat_line_text_muc:hover,
+.chat_line_text_cobrowsing:hover {
+    background: #326F1E !important;
+}
+/* Messages: file upload */
+
+.statusbar {
+    position: relative;
+    padding: 0.375rem 2.5rem 0.375rem 0.75rem;
+    margin: 4px 0;
+    background: #F3F3F5;
+}
+
+.progressBar {
+    display: none;
+}
+
+.statusbar_close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2rem;
+    height: 100%;
+    font-size: 1px;
+    letter-spacing: -1px;
+    color: transparent;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+}
+
+.statusbar_close:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: "\f00d";
+    /* FA close icon */
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1rem;
+    letter-spacing: normal;
+    line-height: 1.5rem;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #282020;
+    transform: translate(-50%, -50%);
+    transition: color 250ms ease-out;
+}
+
+.statusbar_close:hover {
+    background: #DA291C;
+}
+
+.statusbar_close:hover:before {
+    color: #FFFFFF;
+}
+/* Messages: input and send button */
+
+.bottom_wrapper {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.bottom_wrapper:before,
+.bottom_wrapper:after {
+    content: none;
+}
+/* Messages: toolbar */
+
+#chat_toolbar {
+    width: 100%;
+    padding-bottom: 6px;
+    text-align: left;
+    transform: translateY(-100%);
+}
+
+#spnChatTyping {
+    float: none;
+    height: auto;
+    font-size: 12px;
+    line-height: 1;
+    color: #7C7070;
+}
+/* Messages: input */
+
+.message_input_wrapper {
+    position: static;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 0;
+    border-right: none;
+    border-color: #BABABA;
+    border-radius: 0;
+}
+
+.message_input_wrapper span {
+    -webkit-box-ordinal-group: 3;
+    -ms-flex-order: 3;
+    order: 3;
+    height: 3rem;
+    margin-top: -1px;
+}
+
+.message_input {
+    position: static;
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    padding: 0 1.25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #614D4D
+}
+
+.message_input:placeholder {
+    font-style: italic;
+    font-weight: normal;
+    color: #7C7070 !important;
+}
+
+.message_input:-ms-input-placeholder {
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+.message_input:-moz-placeholder {
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+.message_input::-moz-placeholder {
+    font-style: italic;
+    color: #7C7070 !important;
+}
+
+.message_input::-webkit-input-placeholder {
+    font-style: italic;
+    color: #7C7070 !important;
+}
+/* Messages: upload and download button */
+
+#clip_upload,
+#download_txt {
+    width: 3rem;
+    height: 100%;
+    font-size: 1.35rem;
+    line-height: 3rem;
+    text-align: center;
+    background: #90ABBC;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+}
+
+#clip_upload {
+    border-right: 1px solid #2b3c46;
+}
+
+#download_txt {
+    padding: 0;
+}
+
+#clip_upload:focus,
+#download_txt:focus,
+#clip_upload:hover,
+#download_txt:hover {
+    background: #678CA3;
+}
+/* fileupload: statusbar */
+
+.chat_contents_download.statusbar .filename,
+.chat_contents_download.statusbar .filesize {
+    display: inline;
+    float: none
+}
+/* Messages: chat status indicator */
+
+.chat_company {
+    -webkit-box-ordinal-group: 2 !important;
+    -ms-flex-order: 2 !important;
+    order: 2 !important;
+}
+
+#spnChatStatus {
+    position: relative;
+    top: 50%;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: none;
+    margin-right: 0.5rem;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1rem;
+    letter-spacing: normal;
+    line-height: 1;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: none;
+    border-radius: 0;
+    transform: translateY(-50%);
+}
+
+.company_on:before,
+.company_off:before,
+.company_blind_timeout:before,
+.company_blind_on:before,
+.company_blind_off:before {
+    content: "\f111";
+    /* FA circle icon */
+}
+
+.company_on:before,
+.company_blind_on:before {
+    color: #4AA32C;
+}
+
+.company_blind_timeout:before,
+.company_blind_off:before {
+    color: #DA291C;
+}
+
+.company_off:before {
+    color: #BABABA;
+}
+
+.company_blind_kill:before {
+    content: "\f00d";
+    /* FA close icon */
+    color: #DA291C;
+}
+
+.company_blind_progress:before {
+    content: "\f251";
+    /* FA hourglass-start icon */
+    color: #282020;
+}
+/* Messages: send button */
+
+.send_message {
+    float: none;
+    border-radius: 0;
+    font-family: "Sun Regular", "Helvetica Neue", Helvetica, Arial, Georgia, Sans-serif;
+    text-transform: none;
+    background: #0064B4;
+}
+
+.send_message:hover {
+    background: #003f72;
+}
+
+.send_message i {
+    font-style: normal;
+}

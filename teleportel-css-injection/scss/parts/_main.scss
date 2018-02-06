@@ -1,0 +1,17 @@
+ /*
+  MAIN CONTENT WRAPPER
+  -----
+*/
+
+#main {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
+#plugin_install {
+    display: none !important;
+    padding: 0;
+}

@@ -1,0 +1,22 @@
+ /*
+  MEDIA QUERIES
+  -----
+*/
+
+@media screen and (max-width: 767px) and (min-width: 100px) {
+    body {
+        padding: 1rem !important;
+    }
+    #display_short {
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 1125px) and (min-width: 767px) {
+    body {
+        padding: 1rem !important;
+    }
+    #display_short {
+        right: 0;
+    }
+}
