@@ -1,0 +1,56 @@
+.statusbar {
+    position: relative;
+    padding: .375rem 2.5rem .375rem .75rem;
+    margin: 4px 0;
+    background: #F3F3F5;
+}
+
+.progressBar {
+    display: none;
+}
+
+.statusbar_close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2rem;
+    height: 100%;
+    font-size: 1px;
+    letter-spacing: -1px;
+    color: transparent;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+}
+
+.statusbar_close:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: "\f00d";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1rem;
+    letter-spacing: normal;
+    line-height: 1.5rem;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #282020;
+    transform: translate(-50%, -50%);
+    transition: color 250ms ease-out;
+}
+
+.statusbar_close:hover {
+    background: #DA291C;
+}
+
+.statusbar_close:hover:before {
+    color: #FFF;
+}
+
+/* fileupload: statusbar */
+
+.chat_contents_download.statusbar .filename,
+.chat_contents_download.statusbar .filesize {
+    display: inline;
+    float: none
+}

@@ -1,8 +1,9 @@
-@import "parts/fonts";
-@import "parts/base";
-@import "parts/notification";
-@import "parts/main";
-@import "parts/chat-header";
-@import "parts/messages";
-@import "parts/slogan";
-@import "parts/queries";
+@import "common/fonts";
+@import "common/base";
+@import "common/main";
+@import "common/queries";
+
+@import "client/notification";
+@import "client/chat-header";
+@import "client/messages";
+@import "client/slogan";

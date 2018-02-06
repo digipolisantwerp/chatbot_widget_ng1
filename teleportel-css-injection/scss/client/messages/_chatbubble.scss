@@ -1,0 +1,44 @@
+.message {
+    padding-bottom: 4px;
+}
+
+.message i {
+    font-style: normal;
+    font-weight: 700;
+    color: #0064B4 !important;
+}
+
+.message_video,
+.chat_line_text_p2p,
+.chat_line_text_muc,
+.chat_line_text_cobrowsing {
+    position: relative;
+    padding: 4px 4px 4px 24px !important;
+    background: #4AA32C !important;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+}
+
+.message_video:before,
+.chat_line_text_p2p:before,
+.chat_line_text_muc:before,
+.chat_line_text_cobrowsing:before {
+    position: absolute;
+    left: 4px;
+    content: "\f03d";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 14px;
+    letter-spacing: normal;
+    line-height: 1.25rem;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.message_video:hover,
+.chat_line_text_p2p:hover,
+.chat_line_text_muc:hover,
+.chat_line_text_cobrowsing:hover {
+    background: #326F1E !important;
+}

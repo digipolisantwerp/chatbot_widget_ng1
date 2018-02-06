@@ -27,7 +27,7 @@
     display: inline-block;
     width: 2.25rem;
     height: 2.25rem;
-    margin-top: 0.375rem;
+    margin-top: .375rem;
     font-size: 1px;
     letter-spacing: -1px;
     text-shadow: none;
@@ -54,5 +54,5 @@
 }
 
 .chat_header button.close:hover:before {
-    color: #FFFFFF;
+    color: #FFF;
 }
