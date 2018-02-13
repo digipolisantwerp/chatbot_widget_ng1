@@ -3,7 +3,5 @@
 @import "common/main";
 @import "common/queries";
 
-@import "client/notification";
-@import "client/chat-header";
-@import "client/messages";
-@import "client/slogan";
+@import "agent/messages";
+@import "agent/user-contact";

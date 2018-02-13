@@ -1,0 +1,20 @@
+#clip_upload,
+#download_txt {
+    width: 3rem;
+    height: 100%;
+    font-size: 1.35rem;
+    line-height: 3rem;
+    text-align: center;
+    background: #90ABBC;
+    color: #FFF;
+    cursor: pointer;
+    transition: background 250ms ease-out;
+    border-right: 1px solid #2B3C46;
+}
+
+#clip_upload:focus,
+#download_txt:focus,
+#clip_upload:hover,
+#download_txt:hover {
+    background: #678CA3;
+}

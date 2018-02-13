@@ -1,0 +1,51 @@
+    .chat_window {
+        border-radius: 0;
+        .bottom_wrapper {
+            border-radius: 0;
+            .send_message {
+                float: none;
+                border-radius: 0;
+                font-family: "Sun Regular", "Helvetica Neue", Helvetica, Arial, Georgia, Sans-serif;
+                text-transform: none;
+                background: #0064B4;
+            }
+            .send_message:hover {
+                background: #003F72;
+            }
+            .send_message i {
+                font-style: normal;
+            }
+            .message_input_wrapper {
+                height: 3rem;
+                position: static;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-positive: 1;
+                flex-grow: 1;
+                padding: 0;
+                border-right: none;
+                border-color: #BABABA;
+                border-radius: 0;
+
+                span {
+                    -webkit-box-ordinal-group: 3;
+                    -ms-flex-order: 3;
+                    order: 3;
+                    height: 3rem;
+                    margin-top: -1px;
+                }
+
+                .message_input {
+                    position: static;
+                    -webkit-box-ordinal-group: 1;
+                    -ms-flex-order: 1;
+                    order: 1;
+                    padding: 0 1.25rem;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    color: #614D4D;
+                }
+            }
+        }
+    }

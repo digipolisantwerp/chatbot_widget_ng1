@@ -8,10 +8,6 @@ rules:
     - 1
     -
       style: '1tbs'
-  class-name-format:
-    - 1
-    -
-      convention: 'hyphenatedbem'
   empty-line-between-blocks:
     - 1
     -
@@ -46,7 +42,7 @@ rules:
   no-debug: 1
   no-duplicate-properties: 1
   no-empty-rulesets: 1
-  no-important: 2
+  no-important: 1
   no-invalid-hex: 2
   no-mergeable-selectors:
     - 1

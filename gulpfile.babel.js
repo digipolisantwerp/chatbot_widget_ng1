@@ -9,6 +9,9 @@ import connect from 'gulp-connect';
 const wiredep = require('wiredep').stream;
 import sass from 'gulp-sass';
 
+const rp = require('request-promise');
+const fs = require('fs');
+
 const paths = {
     dist: 'dist',
     src: 'src',
@@ -132,22 +135,56 @@ gulp.task('wire', function wire() {
         .pipe(gulp.dest('./example'));
 });
 
-gulp.task('teleportel-build-client', function(){
+gulp.task('teleportel-build-client', function () {
     return gulp.src('./teleportel-css-injection/scss/santwerp.client.scss')
         .pipe(sass())
         .pipe(gulp.dest('./teleportel-css-injection'));
 });
 
-gulp.task('teleportel-build-agent', function(){
+gulp.task('teleportel-build-agent', function () {
     return gulp.src('./teleportel-css-injection/scss/santwerp.agent.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./teleportel-css-injection'));
+        .pipe(sass())
+        .pipe(gulp.dest('./teleportel-css-injection'));
 });
 
-gulp.task('teleportel-build', function(done){
+gulp.task('teleportel-post-agent', function (done) {
+
+    fs.readFile("./teleportel-css-injection/santwerp.agent.css", "utf-8", function (err, _data) {
+        var options = {
+            method: 'POST',
+            uri: 'https://talk.attendedbyhumans.com/tbv1/custom_agent/write.php',
+            form: {
+                text: _data,
+                agent: 'santwerp'
+            }
+        };
+
+        rp(options)
+            .then(function (body) {
+                done();
+            })
+            .catch(function (err) {
+                if (err.statusCode === 302) {
+                    return done();
+                }
+                throw err;
+            });
+    });
+});
+
+
+gulp.task('teleportel-build', function (done) {
     return runSequence(
         'teleportel-build-client',
         'teleportel-build-agent',
         done
     );
+});
+
+gulp.task('teleportel-watch-agent', function () {
+    gulp.watch(['./teleportel-css-injection/scss/agent/**/*.scss', './teleportel-css-injection/scss/common/**/*.scss', './teleportel-css-injection/scss/santwerp.agent.scss'], ['teleportel-build-agent', 'teleportel-post-agent']);
+});
+
+gulp.task('teleportel-watch', function () {
+    gulp.watch('./teleportel-css-injection/**/*.scss', ['teleportel-build']);
 });
