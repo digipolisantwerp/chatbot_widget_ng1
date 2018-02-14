@@ -217,6 +217,9 @@ body:before {
 #download_txt:hover {
   background: #678CA3; }
 
+.btn-primary {
+  border-radius: 0; }
+
 .bottom_wrapper {
   position: relative;
   display: -ms-flexbox;
