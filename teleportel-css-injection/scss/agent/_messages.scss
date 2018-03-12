@@ -2,12 +2,19 @@
 @import "messages/chat-status";
 @import "messages/action-buttons";
 
-.bottom_wrapper {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
+.chat_window {
+    .bottom_wrapper {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        background-color: #E5E5E6;
+    }
+}
+
+#chat_contents{
+    background-color: #FFF;
 }
 
 .bottom_wrapper:before,

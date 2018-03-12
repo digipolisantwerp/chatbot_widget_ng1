@@ -25,8 +25,8 @@
                 padding: 0;
                 border-right: none;
                 border-color: #BABABA;
+                background-color: #FFF; 
                 border-radius: 0;
-
                 span {
                     -webkit-box-ordinal-group: 3;
                     -ms-flex-order: 3;
@@ -34,7 +34,6 @@
                     height: 3rem;
                     margin-top: -1px;
                 }
-
                 .message_input {
                     position: static;
                     -webkit-box-ordinal-group: 1;

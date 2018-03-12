@@ -129,6 +129,7 @@ body:before {
       padding: 0;
       border-right: none;
       border-color: #BABABA;
+      background-color: #FFF;
       border-radius: 0; }
       .chat_window .bottom_wrapper .message_input_wrapper span {
         -webkit-box-ordinal-group: 3;
@@ -220,12 +221,19 @@ body:before {
 .btn-primary {
   border-radius: 0; }
 
-.bottom_wrapper {
+.fileUpload {
+  display: none; }
+
+.chat_window .bottom_wrapper {
   position: relative;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-negative: 0;
-  flex-shrink: 0; }
+  flex-shrink: 0;
+  background-color: #E5E5E6; }
+
+#chat_contents {
+  background-color: #FFF; }
 
 .bottom_wrapper:before,
 .bottom_wrapper:after {
@@ -252,3 +260,6 @@ body:before {
 
 #user-contact .btn-primary {
   border-radius: 0; }
+
+.slide-popup-back .popup-content-boby {
+  background-color: #E5E5E6 !important; }
