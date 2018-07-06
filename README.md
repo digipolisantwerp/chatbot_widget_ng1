@@ -78,12 +78,4 @@ as well as adjust necessary parameters in `example/index.html`.
 
 ### Developing
 
-Use `gulp` to have a watcher running for code changes.
-
-`gulp bump:major` for major build increase and tag on the current branch.
-
-`gulp bump:minor` for minor build increase and tag on the current branch.
-
-`gulp bump:patch` for patch build increase and tag on the current branch.
-
-Use `gulp serve` to selfhost the app. Navigate to `./example/index.html' to view the app.
+Please refer to the [contributing guide](CONTRIBUTING.md).
