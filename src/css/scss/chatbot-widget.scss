@@ -2,13 +2,16 @@
 
 /* backport styles from core branding to bower sasskit */
 
-$border-color: $gray;
-$spacer: 1.5rem !default; // 24px
-$spacer-sm: $spacer * .75 !default; // 18px
-$spacer-xs: $spacer * .5 !default; // 12px
-$screen-xs: 30rem !default; // 480px
-$text-color-xlight: $white !default;
-$grey-lighter: rgb(243, 243, 243) !default;
+$text-color: rgb(8, 31, 44);
+$border-color: rgb(176, 176, 176);
+$box-shadow-color: mix($border-color, $white, 25%);
+$grey-lighter: rgb(243, 243, 243);
+$button-hover-color: mix($alpha-ui-color, $black, 85%);
+$spacer: 1.5rem;
+$spacer-sm: $spacer * .75;
+$spacer-xs: $spacer * .5;
+$screen-xs: 30rem;
+$text-color-xlight: $white;
 
 .u-margin-xs {
     margin: $spacer-xs;
@@ -35,6 +38,10 @@ $grey-lighter: rgb(243, 243, 243) !default;
 /* widget style */
 
 .o-chatbot {
+    color: $text-color;
+    font-size: 1rem;
+    line-height: 1;
+
     &__content {
         background-color: $white;
         border: 1px solid $border-color;
@@ -120,6 +127,48 @@ $grey-lighter: rgb(243, 243, 243) !default;
     .button {
         margin-right: 0;
         margin-bottom: 0;
+
+        &:hover,
+        &:focus {
+            background: $button-hover-color;
+        }
+
+        &.transparent:hover,
+        &.transparent:focus {
+            background-color: transparent;
+            color: $button-hover-color;
+        }
+    }
+
+    .field {
+        border-color: $border-color;
+        color: $text-color;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            border-color: $border-color;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px $box-shadow-color;
+        }
+
+        &::-webkit-input-placeholder {
+            font-style: normal;
+        }
+
+        &::-moz-placeholder {
+            font-style: normal;
+        }
+
+        &:-ms-input-placeholder {
+            font-style: normal;
+        }
+
+        &:-moz-placeholder {
+            font-style: normal;
+        }
     }
 }
 
