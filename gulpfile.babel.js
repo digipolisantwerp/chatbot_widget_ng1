@@ -27,7 +27,7 @@ gulp.task('sasslint', function sasslint() {
 });
 
 gulp.task('sass', function sass() {
-    return helpers.sass.compile(path.join(paths.src, 'css/scss/**/*.scss'), path.join(paths.dist, 'css'), true, 'akit.component.chatservicer-button.min.css', true, '', 'akit.component.chatservicer-button');
+    return helpers.sass.compile(path.join(paths.src, 'css/scss/**/*.scss'), path.join(paths.dist, 'css'), true, 'akit.component.chatbot-widget.min.css', true, '', 'akit.component.chatbot-widget');
 });
 
 gulp.task('cleancss', function cleancss() {
@@ -41,7 +41,7 @@ gulp.task('cleanjs', function cleanjs() {
 gulp.task('clean', ['cleanjs', 'cleancss']);
 
 gulp.task('minify', function minify() {
-    return helpers.build.buildJS('akit.component.chatservicer-button', paths.src, path.join(paths.dist, 'js'), false, 'akit.component.chatservicerButton', '/assets/chatservicer-button/');
+    return helpers.build.buildJS('akit.component.chatbot-widget', paths.src, path.join(paths.dist, 'js'), false, 'akit.component.chatbotWidget', '/assets/chatbot-widget/');
 });
 
 gulp.task('test', function test(done) {
@@ -133,58 +133,4 @@ gulp.task('wire', function wire() {
     gulp.src('./example/index.html')
         .pipe(wiredep())
         .pipe(gulp.dest('./example'));
-});
-
-gulp.task('teleportel-build-client', function () {
-    return gulp.src('./teleportel-css-injection/scss/santwerp.client.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('./teleportel-css-injection'));
-});
-
-gulp.task('teleportel-build-agent', function () {
-    return gulp.src('./teleportel-css-injection/scss/santwerp.agent.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('./teleportel-css-injection'));
-});
-
-gulp.task('teleportel-post-agent', function (done) {
-
-    fs.readFile("./teleportel-css-injection/santwerp.agent.css", "utf-8", function (err, _data) {
-        var options = {
-            method: 'POST',
-            uri: 'https://talk.attendedbyhumans.com/tbv1/custom_agent/write.php',
-            form: {
-                text: _data,
-                agent: 'santwerp'
-            }
-        };
-
-        rp(options)
-            .then(function (body) {
-                done();
-            })
-            .catch(function (err) {
-                if (err.statusCode === 302) {
-                    return done();
-                }
-                throw err;
-            });
-    });
-});
-
-
-gulp.task('teleportel-build', function (done) {
-    return runSequence(
-        'teleportel-build-client',
-        'teleportel-build-agent',
-        done
-    );
-});
-
-gulp.task('teleportel-watch-agent', function () {
-    gulp.watch(['./teleportel-css-injection/scss/agent/**/*.scss', './teleportel-css-injection/scss/common/**/*.scss', './teleportel-css-injection/scss/santwerp.agent.scss'], ['teleportel-build-agent', 'teleportel-post-agent']);
-});
-
-gulp.task('teleportel-watch', function () {
-    gulp.watch('./teleportel-css-injection/**/*.scss', ['teleportel-build']);
 });

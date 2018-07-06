@@ -1,0 +1,30 @@
+<div>
+  <div class="m-message" ng-if="!msg.data.hide">
+    <div ng-switch="msg.data.type" ng-class="{'m-message--right': msg.data.send, 'm-message--center': msg.data.type === 'radio' || msg.data.type === 'error'}"
+      class="m-message__content">
+
+      <span ng-switch-when="text" class="m-message__text">
+        {{ msg.data.message }}
+      </span>
+
+      <span ng-switch-when="url" class="m-message__url">
+        <a ng-href="msg.data.url" target="_blank" rel="external">{{ msg.data.message }}</a>
+      </span>
+
+      <span ng-switch-when="image" class="m-message__image">
+        <img ng-src="msg.data.image">
+      </span>
+
+      <span ng-switch-when="radio" class="m-message__radio">
+        <ng-container ng-repeat="element in msg.data.elements">
+          <button ng-click="msg.sendReply(element.replyText)" class="a-button a-button--small">{{ element.text }}</button>
+        </ng-container>
+      </span>
+
+      <span ng-switch-when="error" class="m-message__error u-text-danger">
+        {{ msg.data.message }}
+      </span>
+
+    </div>
+  </div>
+</div>

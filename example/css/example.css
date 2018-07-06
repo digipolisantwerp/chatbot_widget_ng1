@@ -1,5 +1,19 @@
-.chat-button-wrapper {
-    position: fixed;
-    right: 0;
-    bottom: 0;
+body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.u-wrapper {
+    flex: 1 1 auto;
+    max-width: 600px;
+}
+
+.u-margin-lg {
+    margin: 3rem !important;
+}
+
+.u-margin-top-lg {
+    margin-top: 3rem !important;
 }

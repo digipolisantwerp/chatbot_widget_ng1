@@ -2,6 +2,6 @@
     'use strict';
 
     ng
-        .module('akit.component.chatservicerButton', []);
+        .module('akit.component.chatbotWidget', []);
 
 })(window.angular);

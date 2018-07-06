@@ -3,31 +3,47 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Chatservicer example</title>
+    <title>Chatbot example</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/sasskit/dist/css/sasskit.css" />
     <!-- endbower -->
-    <link rel="stylesheet" href="../dist/css/akit.component.chatservicer-button.css" />
+    <link rel="stylesheet" href="../dist/css/akit.component.chatbot-widget.css" />
     <link rel="stylesheet" href="css/example.css" />
 </head>
 
-<body ng-app="chatservicerButton" ng-controller="chatservicerButtonCtrl">
-    <a href="#"
-        class="button"
-        ng-click="switchAvailability()">Toggle availability</a>
-
-        <div class="chat-button-wrapper">
-            <div chatservicer-button
-                entitykey="form.aanvraagVerlof"></div>
-            </div>
+<body ng-app="chatbotWidget" ng-controller="chatbotWidgetCtrl">
+    <div class="u-margin-lg">
+        <header>
+          <h4 class="h4">Chatbot Smart Widget Playground</h4>
+        </header>
+        <div class="main u-margin-top-lg">
+            <aui-chatbot-widget
+                url="http://localhost:3000/api/chatbot"
+                session="1234"
+                title="My chatbot"
+                placeholder="Type your message here…"
+                pinned="false"
+                delay="200"
+                height="400">
+            </aui-chatbot-widget>
         </div>
+        <div class="main u-margin-top-lg">
+            <aui-chatbot-widget
+                url="http://localhost:3000/api/chatbot"
+                session="1234"
+                placeholder="Typ hier iets anders…"
+                pinnedText="Feestje?"
+                pinned="true">
+            </aui-chatbot-widget>
+        </div>
+    </div>
 
     <!-- bower:js -->
     <script src="../bower_components/angular/angular.js"></script>
     <!-- endbower -->
-    <script src="../dist/js/akit.component.chatservicer-button.js"></script>
+    <script src="../dist/js/akit.component.chatbot-widget.js"></script>
     <script src="js/example.js"></script>
 </body>
 

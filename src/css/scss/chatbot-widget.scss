@@ -1,0 +1,199 @@
+@import "sasskit/dist/scss/api";
+
+/* backport styles from core branding to bower sasskit */
+
+$border-color: $gray;
+$spacer: 1.5rem !default; // 24px
+$spacer-sm: $spacer * .75 !default; // 18px
+$spacer-xs: $spacer * .5 !default; // 12px
+$screen-xs: 30rem !default; // 480px
+$text-color-xlight: $white !default;
+$grey-lighter: rgb(243, 243, 243) !default;
+
+.u-margin-xs {
+    margin: $spacer-xs;
+}
+
+.u-text-xlight {
+    color: $text-color-xlight;
+}
+
+.u-text-bold {
+    font-weight: $bold;
+}
+
+.has-base-font {
+    font-family: $base-font-family;
+}
+
+@mixin at($min-width) {
+    @media screen and (min-width: $min-width) {
+        @content;
+    }
+}
+
+/* widget style */
+
+.o-chatbot {
+    &__content {
+        background-color: $white;
+        border: 1px solid $border-color;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        height: 100%;
+        max-height: 100vh;
+    }
+
+    &__buttons {
+        float: right;
+    }
+
+    /**
+     * Elements
+     */
+
+    &__header {
+        align-items: center;
+        border-bottom: 1px solid $border-color;
+        display: flex;
+        justify-content: space-between;
+        min-height: $spacer * 2;
+
+        &--no-title {
+            justify-content: flex-end;
+        }
+    }
+
+    &__main {
+        flex: 1;
+        min-height: $spacer * 5;
+        overflow: auto;
+    }
+
+    &__loader {
+        span {
+            display: inline-block;
+            font-size: 2rem;
+            height: $spacer;
+            margin-bottom: $spacer-sm;
+        }
+    }
+
+    &__footer {
+        border-top: 1px solid $border-color;
+    }
+
+    &__input {
+        display: flex;
+
+        input {
+            flex: 1 1 auto;
+        }
+    }
+
+    /**
+     * Modifiers
+     */
+
+    &--pinned {
+        bottom: 0;
+        left: $spacer;
+        position: fixed;
+        right: $spacer;
+
+        .o-chatbot__content {
+            @include at($screen-xs) {
+                max-height: $spacer * 20;
+            }
+
+            border-bottom: 0;
+            height: 75vh;
+        }
+
+        @include at($screen-xs) {
+            left: auto;
+            width: $spacer * 12;
+        }
+    }
+
+    .button {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* widget message style */
+
+.m-message {
+    &__content {
+        display: flex;
+        margin: 0 $spacer $spacer-sm 0;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+
+        > span {
+            animation: pop .2s ease-out;
+            display: inline-block;
+        }
+
+        .a-button {
+            display: inline-block;
+            margin-bottom: $spacer-xs / 2;
+            width: auto;
+        }
+    }
+
+    /**
+     * Components
+     */
+
+    &__text,
+    &__url {
+        background-color: $grey-lighter;
+        padding: $spacer-xs $spacer-sm;
+    }
+
+    &__error {
+        background-color: mix($danger, $white, 10%);
+        padding: $spacer-xs $spacer-sm;
+    }
+
+    &__radio {
+        margin-bottom: $spacer-xs / -2;
+    }
+
+    /**
+     * Modifiers
+     */
+    .m-message--center {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .m-message--right {
+        justify-content: flex-end;
+        margin: 0 0 $spacer-sm $spacer;
+        text-align: center;
+
+        .m-message__text {
+            background-color: mix($alpha-ui-color, $white, 10%);
+        }
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+    }
+
+    80% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

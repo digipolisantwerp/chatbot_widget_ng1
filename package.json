@@ -1,20 +1,23 @@
 {
-  "name": "chatservicer-button_component_angular",
-  "version": "0.3.18",
-  "description": "akit chatservicer-button component",
+  "name": "@acpaas-ui-widgets/ng1-chatbot",
+  "version": "0.0.1",
+  "description": "akit chatbot widget",
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "ssh://git@git.antwerpen.be/akit/chatservicer-button_component_angular.git"
+    "url": "git+https://github.com/digipolisantwerp/chatbot_widget_ng1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digipolisantwerp/chatbot_widget_ng1/issues"
   },
   "keywords": [
-    "chatservicer",
+    "chatbot",
     "angular"
   ],
-  "author": "Andry Charlier",
+  "author": "Joeri Sebrechts",
   "devDependencies": {
-    "astad-gulp-setup": "^3.3.3",
-    "babel": "^6.23.0",
+    "astad-gulp-setup": "^4.0.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",

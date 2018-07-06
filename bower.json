@@ -1,20 +1,20 @@
 {
-  "name": "akit-component-chatservicer-button",
-  "version": "0.3.18",
-  "description": "akit chatservicer-button component",
+  "name": "akit-component-chatbit-widget",
+  "version": "0.0.1",
+  "description": "akit chatbot widget",
   "main": [
-    "dist/css/akit.component.chatservicer-button.css",
-    "dist/js/akit.component.chatservicer-button.js"
+    "dist/css/akit.component.chatbot-widget.css",
+    "dist/js/akit.component.chatbot-widget.js"
   ],
   "authors": [
-    "Andry Charlier"
+    "Joeri Sebrechts"
   ],
   "dependencies": {
     "angular": "1.2.12",
     "sasskit": "ssh://git@git.antwerpen.be/astad/sasskit_bower_scss.git#3.x.x"
   },
   "keywords": [
-    "chatservicer",
+    "chatbot",
     "angular"
   ],
   "private": true,
