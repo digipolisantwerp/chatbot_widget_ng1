@@ -1,6 +1,6 @@
 {
   "name": "@acpaas-ui-widgets/ng1-chatbot",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "akit chatbot widget",
   "main": "main.js",
   "repository": {
