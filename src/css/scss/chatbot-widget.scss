@@ -192,6 +192,13 @@ $text-color-xlight: $white;
             display: inline-block;
             margin-bottom: $spacer-xs / 2;
             width: auto;
+            padding: 0 1.5rem;
+        }
+
+        .a-button--small {
+            font-size: .875rem;
+            line-height: 2.25rem;
+            min-height: 2.25rem;
         }
     }
 

@@ -17,7 +17,7 @@
 
       <span ng-switch-when="radio" class="m-message__radio">
         <ng-container ng-repeat="element in msg.data.elements">
-          <button ng-click="msg.sendReply(element.replyText)" class="a-button a-button--small">{{ element.text }}</button>
+          <button ng-click="msg.sendReply(element.replyText)" class="button a-button a-button--small">{{ element.text }}</button>
         </ng-container>
       </span>
 
