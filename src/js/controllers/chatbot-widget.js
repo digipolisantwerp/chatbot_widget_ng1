@@ -81,8 +81,8 @@
                     }
                 };
 
-                vm.sendReply = function (event) {
-                    vm.message.message = event.message;
+                vm.sendReply = function (event, data) {
+                    vm.message.message = data.message;
                     vm.sendMessage();
                 };
 
