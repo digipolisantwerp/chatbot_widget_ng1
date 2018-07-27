@@ -199,7 +199,7 @@
                         pinnedText: '@?',
                         placeholder: '@?',
                         delay: '@?',
-                        height: '@?'
+                        height: '=?'
                     },
                     link: function (scope, element, attrs, ctrl) {
 
