@@ -8,16 +8,16 @@
       </span>
 
       <span ng-switch-when="url" class="m-message__url">
-        <a ng-href="msg.data.url" target="_blank" rel="external">{{ msg.data.message }}</a>
+        <a ng-href="{{ msg.data.url }}" target="_blank" rel="external">{{ msg.data.message }}</a>
       </span>
 
       <span ng-switch-when="image" class="m-message__image">
-        <img ng-src="msg.data.image">
+        <img ng-src="{{ msg.data.image }}">
       </span>
 
       <span ng-switch-when="radio" class="m-message__radio">
         <ng-container ng-repeat="element in msg.data.elements">
-          <button ng-click="msg.sendReply(element.replyText)" class="a-button a-button--small">{{ element.text }}</button>
+          <button ng-click="msg.sendReply(element.replyText)" class="button a-button a-button--small">{{ element.text }}</button>
         </ng-container>
       </span>
 
