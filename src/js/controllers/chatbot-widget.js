@@ -13,9 +13,9 @@
                 this.pinnedText = $scope.pinnedText || "Een vraag stellen";
                 this.placeholder = $scope.placeholder || "";
                 this.delay = $scope.delay || 400;
-                this.height = $scope.height || 400;
                 this.title = $scope.title || "";
                 this.session = $scope.session;
+                // $scope.height is used directly (two-way binding)
 
                 // set to true to focus the text entry field
                 $scope.focusTextInput = false;
