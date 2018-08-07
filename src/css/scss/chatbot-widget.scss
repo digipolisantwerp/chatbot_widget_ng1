@@ -190,6 +190,7 @@ $text-color-xlight: $white;
 
         .a-button {
             display: inline-block;
+            margin-right: $spacer-xs / 2;
             margin-bottom: $spacer-xs / 2;
             width: auto;
             padding: 0 1.5rem;
