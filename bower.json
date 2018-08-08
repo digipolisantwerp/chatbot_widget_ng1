@@ -1,6 +1,6 @@
 {
   "name": "akit-component-chatbit-widget",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "akit chatbot widget",
   "main": [
     "dist/css/akit.component.chatbot-widget.css",
