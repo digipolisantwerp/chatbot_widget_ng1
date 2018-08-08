@@ -64,14 +64,15 @@
                 vm.isLoading = false;
                 vm.isOpen = false;
 
-                vm.sendMessage = function () {
-                    if (!vm.message.message) {
+                vm.sendMessage = function (messageText, hidden) {
+                    if (messageText) vm.message.message = messageText;
+                    if (!vm.message.message && !hidden) {
                         return;
                     }
 
                     vm.isLoading = true;
 
-                    vm.addToChat(vm.message);
+                    if (!hidden) vm.addToChat(vm.message);
 
                     chatbotService
                         .sendMessage($scope.url, vm.message)
@@ -110,8 +111,7 @@
                 };
 
                 vm.sendReply = function (event, data) {
-                    vm.message.message = data.message;
-                    vm.sendMessage();
+                    vm.sendMessage(data.message);
                 };
 
                 vm.onInputKey = function (event) {
@@ -123,10 +123,13 @@
                 $scope.$on('chatbotMessageReplyClicked', vm.sendReply);
 
                 vm.addToChat = function (message) {
-                    var newData = [].concat(vm.data, [
-                        Object.assign({}, message)
-                    ]);
-                    this.data = newData;
+                    if (message.type === "text" && message.message === "") {
+                    } else {
+                        var newData = [].concat(vm.data, [
+                            Object.assign({}, message)
+                        ]);
+                        this.data = newData;    
+                    }
                 };
 
                 vm.pushError = function (error) {
@@ -142,6 +145,8 @@
                     };
                     this.addToChat(errorMessage);
                 };
+
+                vm.sendMessage(" ", true);
             }
         ]
     );

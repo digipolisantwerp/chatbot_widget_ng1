@@ -31,8 +31,10 @@
                 vm.isLoading = false;
                 vm.isOpen = false;
 
-                vm.sendMessage = function () {
-                    if (!vm.message.message) {
+                vm.sendMessage = function (messageText, hidden) {
+                    if (messageText) vm.message.message = messageText;
+                    // user did not type a message && we aren't sending this programmatically
+                    if (!vm.message.message && !hidden) {
                         return;
                     }
 
@@ -40,7 +42,7 @@
                     vm.isLoading = true;
 
                     // Add to data
-                    vm.addToChat(vm.message);
+                    if (!hidden) vm.addToChat(vm.message);
 
                     // Send new data
                     chatbotService
@@ -82,8 +84,7 @@
                 };
 
                 vm.sendReply = function (event, data) {
-                    vm.message.message = data.message;
-                    vm.sendMessage();
+                    vm.sendMessage(data.message);
                 };
 
                 vm.onInputKey = function (event) {
@@ -96,10 +97,15 @@
                 $scope.$on('chatbotMessageReplyClicked', vm.sendReply);
 
                 vm.addToChat = function (message) {
-                    var newData = [].concat(vm.data, [
-                        Object.assign({}, message)
-                    ]);
-                    this.data = newData;
+                    if (message.type === "text" && message.message === "") {
+                        // ignore blank messages
+                        // welcome message must not be shown if it is the empty string
+                    } else {
+                        var newData = [].concat(vm.data, [
+                            Object.assign({}, message)
+                        ]);
+                        this.data = newData;    
+                    }
                 };
 
                 vm.pushError = function (error) {
@@ -115,6 +121,9 @@
                     };
                     this.addToChat(errorMessage);
                 };
+
+                // request opening message from chatbot
+                vm.sendMessage(" ", true);
             }
         ]
     );

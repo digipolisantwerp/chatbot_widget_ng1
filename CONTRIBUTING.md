@@ -43,7 +43,7 @@ Commands:
 
   `> gulp serve`
 
-  Browse to http://localhost:8001/example/index.html
+  Browse to [http://localhost:8001/example/index.html](http://localhost:8001/example/index.html)
 
   You also need to start the [backing service](https://github.com/digipolisantwerp/chatbot_service_nodejs).
 
