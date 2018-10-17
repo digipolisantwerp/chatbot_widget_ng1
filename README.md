@@ -8,13 +8,27 @@ You will also need the BFF package in order to get the chatbot smart widget to w
 
 There is a demo app, see below for instructions on running it.
 
+## Changes
+
+### v2.0.0
+
+- adapted to chatbot_service_nodejs 2.x API
+- added `initialmessage` property
+- fixed missing `pinnedText` by renaming it to `pinnedtext`
+
+> Migration note: if you want to use this with the v1 chatbot API, set the property `initialmessage=" "`.
+
+### v1.0.2
+
+- original release
+
 ## How to use
 
 ### Installing
 
-To install this package use bower 
+To install this package use bower
 
-`bower install 'https://github.com/digipolisantwerp/chatbot_widget_ng1.git#^0.x.x'`.
+`bower install 'https://github.com/digipolisantwerp/chatbot_widget_ng1.git#^2.x.x'`.
 
 Include `akit.component.chatbotWidget` as module.
 
@@ -27,7 +41,7 @@ Include `akit.component.chatbotWidget` as module.
   title="My chatbot"
   placeholder="Type your message here…"
   pinned="false"
-  pinnedText="Need help?"
+  pinnedtext="Need help?"
   delay="200"
   height="400">
 </aui-chatbot-widget>
@@ -51,7 +65,7 @@ Include `akit.component.chatbotWidget` as module.
 
 `boolean` Whether the chatbot is inline or pinned to the bottom of the application.
 
-#### **pinnedText**
+#### **pinnedtext**
 
 `string` The text shown on the pinned button. Default: "Een vraag stellen".
 
@@ -66,6 +80,10 @@ Include `akit.component.chatbotWidget` as module.
 #### **height**
 
 `number` Height of the chatbot in pixels. Default: 400.
+
+#### **initialmessage**
+
+`string` The message to send as an opening message (hidden). Defaults to `STARTCOMMANDO`.
 
 ## Run the demo app
 
