@@ -10,11 +10,12 @@
             function ($scope, $timeout, chatbotService) {
                 // ensure we have default values
                 this.pinned = ($scope.pinned === "false") ? false : !!$scope.pinned;
-                this.pinnedText = $scope.pinnedText || "Een vraag stellen";
+                this.pinnedtext = $scope.pinnedtext || "Een vraag stellen";
                 this.placeholder = $scope.placeholder || "";
                 this.delay = $scope.delay || 400;
                 this.title = $scope.title || "";
                 this.session = $scope.session;
+                this.initialmessage = $scope.initialmessage || "STARTCOMMANDO";
                 // $scope.height is used directly (two-way binding)
 
                 // set to true to focus the text entry field
@@ -104,7 +105,7 @@
                         var newData = [].concat(vm.data, [
                             Object.assign({}, message)
                         ]);
-                        this.data = newData;    
+                        this.data = newData;
                     }
                 };
 
@@ -123,8 +124,9 @@
                 };
 
                 // request opening message from chatbot
-                vm.sendMessage(" ", true);
+                vm.sendMessage(this.initialmessage, true);
             }
         ]
     );
+// @ts-ignore
 })(window.angular);

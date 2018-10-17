@@ -1,6 +1,6 @@
 {
   "name": "@acpaas-ui-widgets/ng1-chatbot",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "akit chatbot widget",
   "main": "main.js",
   "repository": {
@@ -27,7 +27,7 @@
     "eslint": "^4.18.2",
     "eslint-config-digipolis-fe-js": "^2.0.3",
     "gulp": "^3.9.1",
-    "gulp-connect": "^5.5.0",
+    "gulp-connect": "^5.6.0",
     "gulp-sass": "^3.2.0",
     "gulp-sass-lint": "^1.3.4",
     "hoek": "^5.0.3",

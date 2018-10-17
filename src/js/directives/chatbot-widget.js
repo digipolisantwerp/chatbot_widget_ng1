@@ -17,10 +17,11 @@
                         session: '@',
                         title: '@',
                         pinned: '@?',
-                        pinnedText: '@?',
+                        pinnedtext: '@?',
                         placeholder: '@?',
                         delay: '@?',
-                        height: '=?'
+                        height: '=?',
+                        initialmessage: '@?'
                     },
                     link: function (scope, element, attrs, ctrl) {
 
@@ -30,4 +31,5 @@
             }
         ]);
 
+// @ts-ignore
 })(window.angular);
