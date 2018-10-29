@@ -10,6 +10,10 @@ There is a demo app, see below for instructions on running it.
 
 ## Changes
 
+### v2.0.1
+
+- fix issue with missing quickreplies
+
 ### v2.0.0
 
 - adapted to chatbot_service_nodejs 2.x API
