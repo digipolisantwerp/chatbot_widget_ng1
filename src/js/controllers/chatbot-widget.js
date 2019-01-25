@@ -17,6 +17,7 @@
                 this.session = $scope.session;
                 this.initialmessage = $scope.initialmessage || "STARTCOMMANDO";
                 // $scope.height is used directly (two-way binding)
+                // $scope.width is used directly (two-way binding)
 
                 // set to true to focus the text entry field
                 $scope.focusTextInput = false;

@@ -21,6 +21,7 @@
                         placeholder: '@?',
                         delay: '@?',
                         height: '=?',
+                        width: '=?',
                         initialmessage: '@?'
                     },
                     link: function (scope, element, attrs, ctrl) {
