@@ -4,14 +4,20 @@
 
 $text-color: rgb(8, 31, 44);
 $border-color: rgb(176, 176, 176);
-$box-shadow-color: mix($border-color, $white, 25%);
+$input-border-focus: rgb(192, 223, 254);
 $grey-lighter: rgb(243, 243, 243);
 $button-hover-color: mix($alpha-ui-color, $black, 85%);
 $spacer: 1.5rem;
 $spacer-sm: $spacer * .75;
 $spacer-xs: $spacer * .5;
-$screen-xs: 30rem;
+$spacer-lg: $spacer * 2;
+$screen-xs: 30rem;;
 $text-color-xlight: $white;
+
+/* local variables */
+
+$border-radius: $spacer-xs;
+
 
 .u-margin-xs {
     margin: $spacer-xs;
@@ -92,10 +98,16 @@ $text-color-xlight: $white;
     }
 
     &__input {
-        display: flex;
+        margin: -1px;
+        padding-right: $spacer-lg;
+        position: relative;
 
-        input {
-            flex: 1 1 auto;
+        button {
+            padding-left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 3rem;
         }
     }
 
@@ -151,7 +163,7 @@ $text-color-xlight: $white;
         }
 
         &:focus {
-            box-shadow: 0 0 0 2px $box-shadow-color;
+            box-shadow: 0 0 0 3px $input-border-focus;
         }
 
         &::-webkit-input-placeholder {
@@ -177,7 +189,7 @@ $text-color-xlight: $white;
 .m-message {
     &__content {
         display: flex;
-        margin: 0 $spacer $spacer-sm 0;
+        margin: 0 $spacer $spacer-xs 0; // 0 24px 12px 0
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
@@ -190,7 +202,8 @@ $text-color-xlight: $white;
 
         .a-button {
             display: inline-block;
-            margin-right: $spacer-xs / 2;
+            margin-left: $spacer-xs / 4;
+            margin-right: $spacer-xs / 4;
             margin-bottom: $spacer-xs / 2;
             width: auto;
             padding: 0 1.5rem;
@@ -208,14 +221,25 @@ $text-color-xlight: $white;
      */
 
     &__text,
+    &__image,
     &__url {
         background-color: $grey-lighter;
-        padding: $spacer-xs $spacer-sm;
+        border-radius: $border-radius;
+        border-bottom-left-radius: 0;
+        padding: $spacer-xs / 6 * 5 $spacer-sm / 9 * 7; // 10px 14px
+    }
+
+    &__image {
+        padding: $spacer-sm / 9 * 7;
+
+        img {
+            max-width: 100%;
+        }
     }
 
     &__error {
         background-color: mix($danger, $white, 10%);
-        padding: $spacer-xs $spacer-sm;
+        padding: $spacer-xs / 6 * 5 $spacer-sm / 9 * 7; // 10px 14px => min-height = 36px
     }
 
     &__radio {
@@ -227,16 +251,31 @@ $text-color-xlight: $white;
      */
     .m-message--center {
         justify-content: center;
+        margin: 0 0 $spacer-xs;
         text-align: center;
     }
 
     .m-message--right {
         justify-content: flex-end;
-        margin: 0 0 $spacer-sm $spacer;
+        margin: 0 0 $spacer-xs $spacer;
         text-align: center;
 
         .m-message__text {
             background-color: mix($alpha-ui-color, $white, 10%);
+        }
+
+        .m-message__text,
+        .m-message__image,
+        .m-message__url {
+            border-bottom-left-radius: $border-radius;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    &--center,
+    &--left {
+        .m-message__content {
+            margin-left: 0;
         }
     }
 }
