@@ -10,6 +10,12 @@ There is a demo app, see below for instructions on running it.
 
 ## Changes
 
+### v2.1.0
+
+- updated the widget to the new design
+- added avatar
+- added `width` property to control the width of pinned chatbots
+
 ### v2.0.1
 
 - fix issue with missing quickreplies
@@ -47,6 +53,7 @@ Include `akit.component.chatbotWidget` as module.
   pinned="false"
   pinnedtext="Need help?"
   delay="200"
+  width="400"
   height="400">
 </aui-chatbot-widget>
 ```
@@ -84,6 +91,10 @@ Include `akit.component.chatbotWidget` as module.
 #### **height**
 
 `number` Height of the chatbot in pixels. Default: 400.
+
+#### **width**
+
+`number` Width of the chatbot in pixels. Default: 288.
 
 #### **avatar**
 
