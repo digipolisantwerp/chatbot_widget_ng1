@@ -85,6 +85,10 @@ Include `akit.component.chatbotWidget` as module.
 
 `number` Height of the chatbot in pixels. Default: 400.
 
+#### **avatar**
+
+`string` Avatar image URL. Default is the special provided Antwerp icon.
+
 #### **initialmessage**
 
 `string` The message to send as an opening message (hidden). Defaults to `STARTCOMMANDO`.

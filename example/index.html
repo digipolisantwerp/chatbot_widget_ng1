@@ -23,20 +23,20 @@
 <body ng-app="chatbotWidget" ng-controller="chatbotWidgetCtrl">
     <div class="u-margin-lg">
         <header>
-          <h3 class="h3">Chatbot Smart Widget Playground</h3>
+          <h1 class="h4">Chatbot Smart Widget Playground</h1>
         </header>
         <div class="main u-margin-top-lg">
             <aui-chatbot-widget
                 url="http://localhost:3000/api/chatbot"
                 session="{{ session1 }}"
-                title="My chatbot"
-                placeholder="Type your message here…"
+                title="Een voorbeeldchatbot"
+                placeholder="Begin hier te typen…"
                 pinned="false"
-                delay="200"
+                delay="600"
                 height="500">
             </aui-chatbot-widget>
         </div>
-        <div class="main u-margin-top-lg">
+        <!-- <div class="main u-margin-top-lg">
             <aui-chatbot-widget
                 url="http://localhost:3000/api/chatbot"
                 session="{{ session2 }}"
@@ -44,7 +44,7 @@
                 pinnedtext="Klik hier"
                 pinned="true">
             </aui-chatbot-widget>
-        </div>
+        </div> -->
     </div>
 
     <!-- bower:js -->

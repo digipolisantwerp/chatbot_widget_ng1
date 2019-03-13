@@ -5,6 +5,13 @@ body {
     height: 100vh;
 }
 
+h1.h4 {
+	font-size: 1.728rem;
+	font-weight: 500;
+	line-height: 1.1;
+	margin: 0;
+}
+
 .u-wrapper {
     flex: 1 1 auto;
     max-width: 600px;

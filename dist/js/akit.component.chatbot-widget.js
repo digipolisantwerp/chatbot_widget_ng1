@@ -49,6 +49,7 @@
                 this.placeholder = $scope.placeholder || "";
                 this.delay = $scope.delay || 400;
                 this.title = $scope.title || "";
+                this.avatar = $scope.avatar || "https://cdn.antwerpen.be/core_branding_favicons/chatbot/a-chat.svg";
                 this.session = $scope.session;
                 this.initialmessage = $scope.initialmessage || "STARTCOMMANDO";
 
@@ -64,6 +65,7 @@
                 };
                 vm.isLoading = false;
                 vm.isOpen = false;
+                vm.loadingIndex = false;
 
                 vm.sendMessage = function (messageText, hidden) {
                     if (messageText) vm.message.message = messageText;
@@ -80,12 +82,20 @@
                         .then(
                             function (result) {
                                 if (result.data) {
-                                    result.data.forEach(function (item, index) {
+                                    result.data.forEach(function (item, index, res) {
+                                        vm.loadingIndex = index;
+                                        vm.isLoading = true;
                                         $timeout(function () {
+                                            if (index === 0) {
+                                                item.avatar = vm.avatar;
+                                            }
                                             vm.addToChat(item);
+                                            if (index === res.length - 1) {
+                                                vm.loadingIndex = null;
+                                                vm.isLoading = false;
+                                            }
                                         }, index * vm.delay);
                                     });
-                                    vm.isLoading = false;
                                 } else {
                                     throw new Error("no data returned from service");
                                 }
@@ -205,7 +215,8 @@
                         placeholder: '@?',
                         delay: '@?',
                         height: '=?',
-                        initialmessage: '@?'
+                        initialmessage: '@?',
+                        avatar: '@?'
                     },
                     link: function (scope, element, attrs, ctrl) {
 
@@ -310,5 +321,5 @@
 
 })(window.angular);
 
-angular.module("akit.component.chatbotWidget").run(["$templateCache", function($templateCache) {$templateCache.put("/assets/chatbot-widget/views/directives/chatbot-message.htm","<div><div class=\"m-message\" ng-if=\"!msg.data.hide\"><div ng-switch=\"msg.data.type\" ng-class=\"{\'m-message--right\': msg.data.send, \'m-message--center\': msg.data.type === \'radio\' || msg.data.type === \'error\'}\" class=\"m-message__content\" tabindex=\"0\"><span ng-switch-when=\"text\" class=\"m-message__text\">{{ msg.data.message }}</span><span ng-switch-when=\"url\" class=\"m-message__url\"><a ng-href=\"{{ msg.data.url }}\" target=\"_blank\" rel=\"external\">{{ msg.data.message }}</a></span><span ng-switch-when=\"image\" class=\"m-message__image\"><img ng-src=\"{{ msg.data.image }}\"></span><span ng-switch-when=\"radio\" class=\"m-message__radio\"><ng-container ng-repeat=\"element in msg.data.elements\"><button ng-click=\"msg.sendReply(element.replyText)\" class=\"button a-button a-button--small\">{{ element.text }}</button></ng-container></span><span ng-switch-when=\"error\" class=\"m-message__error u-text-danger\">{{ msg.data.message }}</span></div></div></div>");
-$templateCache.put("/assets/chatbot-widget/views/directives/chatbot-widget.htm","<div class=\"o-chatbot\" ng-class=\"{\'o-chatbot--pinned\': chatbot.pinned}\" ng-style=\"{\'height\':!chatbot.pinned ? height + \'px\' : \'\' }\"><div class=\"o-chatbot__content\" ng-if=\"!chatbot.pinned || (chatbot.pinned && chatbot.isOpen)\"><div class=\"o-chatbot__header bg-primary u-text-xlight\" ng-class=\"{\'o-chatbot__header--no-title\': !chatbot.title}\"><h6 class=\"h6 has-base-font u-text-bold u-margin-xs\" ng-if=\"chatbot.title\">{{ chatbot.title }}</h6><button class=\"button icon\" ng-if=\"chatbot.pinned\" ng-click=\"chatbot.toggleChatbot()\"><i class=\"fa fa-close\"></i></button></div><div class=\"o-chatbot__main\" scroll-to-bottom=\"chatbot.data\"><div ng-if=\"chatbot.data && (chatbot.data.length > 0)\" class=\"u-margin-xs\" aria-live=\"assertive\"><ng-container ng-repeat=\"message in chatbot.data\"><aui-chatbot-message data=\"message\"></aui-chatbot-message></ng-container><div ng-if=\"chatbot.isLoading\" class=\"o-chatbot__loader\"><span>...</span></div></div></div><div class=\"o-chatbot__footer\"><div class=\"o-chatbot__input\"><input type=\"text\" class=\"field\" name=\"chat-input\" autocomplete=\"off\" placeholder=\"{{ chatbot.placeholder }}\" focus-from=\"focusTextInput\" ng-model=\"chatbot.message.message\" ng-keypress=\"chatbot.onInputKey($event)\"><button type=\"submit\" class=\"button icon\" ng-click=\"chatbot.sendMessage()\"><i class=\"fa fa-chevron-right\"></i></button></div></div></div><div class=\"o-chatbot__buttons\" ng-if=\"chatbot.pinned && !chatbot.isOpen\"><button ng-click=\"chatbot.toggleChatbot()\" class=\"button has-icon\"><i class=\"fa fa-comments\"></i>{{ chatbot.pinnedtext }}</button></div></div>");}]);
+angular.module("akit.component.chatbotWidget").run(["$templateCache", function($templateCache) {$templateCache.put("/assets/chatbot-widget/views/directives/chatbot-message.htm","<div><div class=\"m-message\" ng-class=\"{\'m-message--right\': msg.data.send, \'m-message--center\': msg.data.type === \'radio\' || msg.data.type === \'error\'}\" ng-if=\"!msg.data.hide\"><div ng-if=\"!msg.data.send && msg.data.avatar\" class=\"a-avatar a-avatar--small\"><img ng-src=\"{{ msg.data.avatar }}\" alt=\"Avatar\"></div><div ng-switch=\"msg.data.type\" class=\"m-message__content\"><span ng-switch-when=\"text\" class=\"m-message__text\" tabindex=\"0\">{{ msg.data.message }}</span><span ng-switch-when=\"url\" class=\"m-message__url\"><a ng-href=\"{{ msg.data.url }}\" target=\"_blank\" rel=\"external\">{{ msg.data.message }}</a></span><span ng-switch-when=\"image\" class=\"m-message__image\" tabindex=\"0\"><img ng-src=\"{{ msg.data.image }}\"></span><span ng-switch-when=\"radio\" class=\"m-message__radio\"><ng-container ng-repeat=\"element in msg.data.elements\"><button ng-click=\"msg.sendReply(element.replyText)\" class=\"button a-button a-button--small\">{{ element.text }}</button></ng-container></span><span ng-switch-when=\"error\" class=\"m-message__error u-text-danger\" tabindex=\"0\">{{ msg.data.message }}</span></div></div></div>");
+$templateCache.put("/assets/chatbot-widget/views/directives/chatbot-widget.htm","<div class=\"o-chatbot\" ng-class=\"{\'o-chatbot--pinned\': chatbot.pinned}\" ng-style=\"{\'height\':!chatbot.pinned ? height + \'px\' : \'\' }\"><div class=\"o-chatbot__content\" ng-if=\"!chatbot.pinned || (chatbot.pinned && chatbot.isOpen)\"><div class=\"o-chatbot__header bg-primary u-text-xlight\" ng-class=\"{\'o-chatbot__header--no-title\': !chatbot.title}\"><h1 class=\"h6 has-base-font u-text-bold u-margin-xs\" ng-if=\"chatbot.title\">{{ chatbot.title }}</h1><button class=\"button icon\" ng-if=\"chatbot.pinned\" ng-click=\"chatbot.toggleChatbot()\"><i class=\"fa fa-close\"></i></button></div><div class=\"o-chatbot__main\" scroll-to-bottom=\"chatbot.data\"><div ng-if=\"chatbot.data && (chatbot.data.length > 0)\" class=\"u-margin-xs\" aria-live=\"assertive\"><ng-container ng-repeat=\"message in chatbot.data\"><aui-chatbot-message data=\"message\"></aui-chatbot-message></ng-container><div ng-if=\"chatbot.isLoading\" class=\"o-chatbot__loader\"><div class=\"a-avatar a-avatar--small\" ng-if=\"!chatbot.loadingIndex\"><img ng-src=\"{{ chatbot.avatar }}\" alt=\"Avatar\"></div><span>...</span></div></div></div><div class=\"o-chatbot__footer\"><div class=\"o-chatbot__input\"><input type=\"text\" class=\"field\" name=\"chat-input\" autocomplete=\"off\" placeholder=\"{{ chatbot.placeholder }}\" focus-from=\"focusTextInput\" ng-model=\"chatbot.message.message\" ng-keypress=\"chatbot.onInputKey($event)\"><button type=\"submit\" class=\"button icon\" ng-click=\"chatbot.sendMessage()\"><i class=\"fa fa-send-o\"></i></button></div></div></div><div class=\"o-chatbot__buttons\" ng-if=\"chatbot.pinned && !chatbot.isOpen\"><button ng-click=\"chatbot.toggleChatbot()\" class=\"button has-icon\"><i class=\"fa fa-comments\"></i>{{ chatbot.pinnedtext }}</button></div></div>");}]);
