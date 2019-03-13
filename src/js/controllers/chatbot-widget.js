@@ -14,6 +14,7 @@
                 this.placeholder = $scope.placeholder || "";
                 this.delay = $scope.delay || 400;
                 this.title = $scope.title || "";
+                this.avatar = $scope.avatar || "https://cdn.antwerpen.be/core_branding_favicons/chatbot/a-chat.svg";
                 this.session = $scope.session;
                 this.initialmessage = $scope.initialmessage || "STARTCOMMANDO";
                 // $scope.height is used directly (two-way binding)
@@ -31,6 +32,7 @@
                 };
                 vm.isLoading = false;
                 vm.isOpen = false;
+                vm.loadingIndex = false;
 
                 vm.sendMessage = function (messageText, hidden) {
                     if (messageText) vm.message.message = messageText;
@@ -51,12 +53,20 @@
                         .then(
                             function (result) {
                                 if (result.data) {
-                                    result.data.forEach(function (item, index) {
+                                    result.data.forEach(function (item, index, res) {
+                                        vm.loadingIndex = index;
+                                        vm.isLoading = true;
                                         $timeout(function () {
+                                            if (index === 0) {
+                                                item.avatar = vm.avatar;
+                                            }
                                             vm.addToChat(item);
+                                            if (index === res.length - 1) {
+                                                vm.loadingIndex = null;
+                                                vm.isLoading = false;
+                                            }
                                         }, index * vm.delay);
                                     });
-                                    vm.isLoading = false;
                                 } else {
                                     throw new Error("no data returned from service");
                                 }

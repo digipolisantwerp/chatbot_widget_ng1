@@ -21,7 +21,8 @@
                         placeholder: '@?',
                         delay: '@?',
                         height: '=?',
-                        initialmessage: '@?'
+                        initialmessage: '@?',
+                        avatar: '@?'
                     },
                     link: function (scope, element, attrs, ctrl) {
 

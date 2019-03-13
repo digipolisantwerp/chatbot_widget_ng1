@@ -5,6 +5,7 @@
 $text-color: rgb(8, 31, 44);
 $border-color: rgb(176, 176, 176);
 $input-border-focus: rgb(192, 223, 254);
+$grey: rgb(176, 176, 176);
 $grey-lighter: rgb(243, 243, 243);
 $button-hover-color: mix($alpha-ui-color, $black, 85%);
 $spacer: 1.5rem;
@@ -13,6 +14,7 @@ $spacer-xs: $spacer * .5;
 $spacer-lg: $spacer * 2;
 $screen-xs: 30rem;;
 $text-color-xlight: $white;
+$avatar: $spacer * 1.5;
 
 /* local variables */
 
@@ -33,6 +35,27 @@ $border-radius: $spacer-xs;
 
 .has-base-font {
     font-family: $base-font-family;
+}
+
+.h6 {
+    font-size: 1.2rem;
+}
+
+.a-avatar {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    &--small {
+        height: $avatar;
+        line-height: $avatar;
+        width: $avatar;
+    }
 }
 
 @mixin at($min-width) {
@@ -85,11 +108,17 @@ $border-radius: $spacer-xs;
     }
 
     &__loader {
+        display: flex;
+
         span {
+            color: $grey;
             display: inline-block;
             font-size: 2rem;
-            height: $spacer;
-            margin-bottom: $spacer-sm;
+            margin-left: $spacer-xs / 2 * 7;
+        }
+
+        .a-avatar + span {
+            margin-left: $spacer-xs / 2;
         }
     }
 
@@ -187,9 +216,22 @@ $border-radius: $spacer-xs;
 /* widget message style */
 
 .m-message {
+    align-items: flex-start;
+    display: flex;
+    margin: 0 $spacer 0 0;
+
+    .a-avatar {
+        background: none;
+        flex: 0 0 auto;
+
+        + .m-message__content {
+            margin-left: $spacer-xs / 2; // 6px
+        }
+    }
+
     &__content {
         display: flex;
-        margin: 0 $spacer $spacer-xs 0; // 0 24px 12px 0
+        margin: 0 0 $spacer-xs $spacer-xs / 2 * 7; // 0 0 12px 42px
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
@@ -249,15 +291,15 @@ $border-radius: $spacer-xs;
     /**
      * Modifiers
      */
-    .m-message--center {
+    &--center {
         justify-content: center;
-        margin: 0 0 $spacer-xs;
+        margin: 0;
         text-align: center;
     }
 
-    .m-message--right {
+    &--right {
         justify-content: flex-end;
-        margin: 0 0 $spacer-xs $spacer;
+        margin: 0 0 0 $spacer;
         text-align: center;
 
         .m-message__text {
