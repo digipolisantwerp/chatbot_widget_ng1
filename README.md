@@ -10,11 +10,15 @@ There is a demo app, see below for instructions on running it.
 
 ## Changes
 
-### v2.1.0
+### v2.2.0
 
 - updated the widget to the new design
 - added avatar
 - added `width` property to control the width of pinned chatbots
+
+### v2.1.0
+
+- fix dependencies
 
 ### v2.0.1
 
