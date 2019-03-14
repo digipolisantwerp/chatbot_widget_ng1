@@ -1,6 +1,6 @@
 <div class="o-chatbot"
   ng-class="{'o-chatbot--pinned': chatbot.pinned}"
-  ng-style="{'height':!chatbot.pinned ? height + 'px' : '', 'width':!chatbot.pinned ? width + 'px' : ''}">
+  ng-style="{'height':!chatbot.pinned ? height + 'px' : '', 'width':chatbot.pinned ? width + 'px' : ''}">
   <div class="o-chatbot__content"
     ng-if="!chatbot.pinned || (chatbot.pinned && chatbot.isOpen)">
     <div class="o-chatbot__header bg-primary u-text-xlight"
@@ -18,7 +18,7 @@
         </ng-container>
         <div ng-if="chatbot.isLoading" class="o-chatbot__loader">
           <div class="a-avatar a-avatar--small" ng-if="!chatbot.loadingIndex">
-            <img ng-src="{{ chatbot.avatar }}" alt="Avatar">
+            <img ng-src="{{ chatbot.avatar }}" alt="Avatar.">
           </div>
           <span>...</span>
         </div>
