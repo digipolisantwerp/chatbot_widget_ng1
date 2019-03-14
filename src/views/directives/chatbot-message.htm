@@ -2,7 +2,7 @@
   <div class="m-message" ng-class="{'m-message--right': msg.data.send, 'm-message--center': msg.data.type === 'radio' || msg.data.type === 'error'}" ng-if="!msg.data.hide">
 
     <div ng-if="!msg.data.send && msg.data.avatar" class="a-avatar a-avatar--small">
-      <img ng-src="{{ msg.data.avatar }}" alt="Avatar">
+      <img ng-src="{{ msg.data.avatar }}" alt="Avatar.">
     </div>
 
     <div ng-switch="msg.data.type" class="m-message__content">
@@ -12,11 +12,12 @@
       </span>
 
       <span ng-switch-when="url" class="m-message__url">
-        <a ng-href="{{ msg.data.url }}" target="_blank" rel="external">{{ msg.data.message }}</a>
+        <a ng-if="msg.data.message" ng-href="{{ msg.data.url }}" target="_blank" rel="external">{{ msg.data.message }}</a>
+        <a ng-if="!msg.data.message" ng-href="{{ msg.data.url }}" target="_blank" rel="external">{{ msg.data.url }}</a>
       </span>
 
       <span ng-switch-when="image" class="m-message__image" tabindex="0">
-        <img ng-src="{{ msg.data.image }}">
+        <img ng-src="{{ msg.data.image }}" alt="Image.">
       </span>
 
       <span ng-switch-when="radio" class="m-message__radio">

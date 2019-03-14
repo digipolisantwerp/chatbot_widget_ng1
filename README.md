@@ -4,11 +4,17 @@ With the chatbot smart widget you can simply implement a chatbot in any page.
 
 You will also need the BFF package in order to get the chatbot smart widget to work: [http://github.com/digipolisantwerp/chatbot_service_nodejs](http://github.com/digipolisantwerp/chatbot_service_nodejs)
 
-<img src="screenshot.png" alt="Chatbot screenshot" width="410" style="max-width:410px;width:100%">
+<img src="screenshot.png" alt="Chatbot screenshot" width="410" style="max-width:100%;width:100%">
 
 There is a demo app, see below for instructions on running it.
 
 ## Changes
+
+### v2.2.1
+
+- fixed a possible empty URL message
+- fixed an issue where the width was incorrectly set when the chatbot was not pinned.
+- fixed an issue where the user's text was incorrectly alligned.
 
 ### v2.2.0
 
@@ -52,12 +58,10 @@ Include `akit.component.chatbotWidget` as module.
 <aui-chatbot-widget
   url="http://localhost:3000/api/bff"
   session="123456789"
-  title="My chatbot"
+  title="My great chatbot widget"
   placeholder="Type your message here…"
   pinned="false"
-  pinnedtext="Need help?"
   delay="200"
-  width="400"
   height="400">
 </aui-chatbot-widget>
 ```
@@ -79,10 +83,6 @@ Include `akit.component.chatbotWidget` as module.
 #### **pinned**
 
 `boolean` Whether the chatbot is inline or pinned to the bottom of the application.
-
-#### **pinnedtext**
-
-`string` The text shown on the pinned button. Default: "Een vraag stellen".
 
 #### **placeholder**
 
@@ -107,6 +107,10 @@ Include `akit.component.chatbotWidget` as module.
 #### **initialmessage**
 
 `string` The message to send as an opening message (hidden). Defaults to `STARTCOMMANDO`.
+
+#### **pinnedtext**
+
+`string` The text shown on the pinned button. Default: "Een vraag stellen".
 
 ## Run the demo app
 
