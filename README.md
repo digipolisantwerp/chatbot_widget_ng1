@@ -135,4 +135,4 @@ Pull requests are always welcome, however keep the following things in mind:
 
 ## Support
 
-Olivier Van den Mooter (<olivier.vandenmooter@digipolis.be>)
+Jasper Van Proeyen (<jasper.vanproeyen@digipolis.be>)
